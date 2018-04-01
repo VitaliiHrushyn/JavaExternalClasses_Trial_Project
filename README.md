@@ -1,7 +1,7 @@
 # JavaExternalsClasses
-Trial projects
+Trial project
 
-Task
+Task.
 (native)
 Домашние электроприборы. Определить иерархию электроприборов.
 Включить некоторые в розетку. Посчитать потребляемую мощность
