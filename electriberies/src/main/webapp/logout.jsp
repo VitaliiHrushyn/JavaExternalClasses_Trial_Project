@@ -4,15 +4,13 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>My profile</title>
+		<title>LogOut</title>
 	</head>
 	<body>
-		<h2>My profile</h2>
-		<menu>
-			<h3>Menu</h3>
-			<a href="${pageContext.request.contextPath}/app/logout">Logout</a>
-			<br>
-			<a href="${pageContext.request.contextPath}/app/showdevices">Show devices</a>
-		</menu>
+		<h1>LogOut page</h1>
+		<br>
+		<a href="${pageContext.request.contextPath}/app/index">Main page</a>
+		<br>
+		<a href="${pageContext.request.contextPath}/app/login">Login page</a>
 	</body>
 </html>

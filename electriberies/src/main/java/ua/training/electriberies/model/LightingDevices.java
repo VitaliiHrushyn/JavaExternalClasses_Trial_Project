@@ -14,8 +14,8 @@ public class LightingDevices extends ElectricalAppliance {
 	}
 
 	@Override
-	public void doWork() {
-		System.out.println(name + "is lightening of " + lightOutput + " lumens");
+	public String doWork() {
+		return (switched) ? (name + " is lightening of " + lightOutput + " lumens") : "nothing";
 	}
 
 }

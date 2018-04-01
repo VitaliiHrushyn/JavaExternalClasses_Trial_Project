@@ -4,15 +4,20 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>My profile</title>
+		<title>Registration</title>
 	</head>
 	<body>
-		<h2>My profile</h2>
+		<h1>Registration page</h1>
+		<br>
+		<c:set var="login" value="${requestScope.login}"/>
+		<h3>${login}, you've been successfully registered.</h3>
+		<br>
 		<menu>
 			<h3>Menu</h3>
-			<a href="${pageContext.request.contextPath}/app/logout">Logout</a>
 			<br>
-			<a href="${pageContext.request.contextPath}/app/showdevices">Show devices</a>
+			<a href="${pageContext.request.contextPath}/app/index">Logout</a>
+			<br>
+			<a href="${pageContext.request.contextPath}/app/login">My profile</a>
 		</menu>
 	</body>
 </html>

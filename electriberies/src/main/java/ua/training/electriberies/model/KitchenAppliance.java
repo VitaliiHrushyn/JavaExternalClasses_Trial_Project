@@ -14,8 +14,8 @@ public class KitchenAppliance extends ElectricalAppliance {
 	}
 
 	@Override
-	public void doWork() {
-		System.out.println(name + " is cooking " + volume + "liters  of goodies");
+	public String doWork() {
+		return (switched) ? (name + " is cooking " + volume + " liters  of goodies") : "nothing";
 	}
 
 }

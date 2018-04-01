@@ -18,8 +18,8 @@ public class HeatingDevice extends ElectricalAppliance {
 	}
 
 	@Override
-	public void doWork() {
-		System.out.println(name + "is heating with temperature: " + temperatura);
+	public String doWork() {
+		return (switched) ? (name + " is heating with temperature: " + temperatura) : "nothing";
 	}
 
 }

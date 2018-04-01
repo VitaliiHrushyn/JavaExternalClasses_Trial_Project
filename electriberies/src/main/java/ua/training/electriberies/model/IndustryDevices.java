@@ -18,8 +18,8 @@ public class IndustryDevices extends ElectricalAppliance {
 	}
 
 	@Override
-	public void doWork() {
-		System.out.println(name + " is rotating with speed of " + rotorSpeed);
+	public String doWork() {
+		return (switched) ? (name + " is rotating with speed of " + rotorSpeed) : "nothing";
 	}
 
 }

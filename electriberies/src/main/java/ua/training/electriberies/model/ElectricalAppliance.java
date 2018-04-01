@@ -40,6 +40,13 @@ public abstract class ElectricalAppliance {
 		return location;
 	}
 	
-	public abstract void doWork();
+	public boolean match(int powerFrom, int powerTo, int voltageFrom, int voltageTo) {
+		return ( 
+				(this.power >= powerFrom && this.power <= powerTo) &&
+				(this.voltage >= voltageFrom && this.voltage <= voltageTo)
+			);
+	}
+	
+	public abstract String doWork();
 
 }
