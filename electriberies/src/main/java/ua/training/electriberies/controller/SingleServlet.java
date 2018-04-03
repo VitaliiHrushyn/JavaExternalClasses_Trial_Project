@@ -59,11 +59,9 @@ public class SingleServlet extends HttpServlet {
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] temp = request.getRequestURI().split("/");
 		String commandName = temp[temp.length - 1];
-//		System.out.println(commandName);
 		String path = commands.getOrDefault(commandName, (r)->commands.get("index").execute(request)).execute(request);
-//		System.out.println("path="+path);
+		
 		request.getRequestDispatcher(path).forward(request, response);
-//		System.out.println("ky-ky");
 	}
 
 }

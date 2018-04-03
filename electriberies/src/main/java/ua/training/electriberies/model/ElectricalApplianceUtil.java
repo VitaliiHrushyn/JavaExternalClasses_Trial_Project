@@ -24,7 +24,7 @@ public class ElectricalApplianceUtil {
 		}			
 	}
 	private static List<ElectricalAppliance> getAllDevices() {
-		return Arrays.asList(DataSourceStub.values());
+		return Arrays.asList(ElectricalApplianceSourceStub.values());
 	}
 	
 	static public List<ElectricalAppliance> showAllDevises() {
