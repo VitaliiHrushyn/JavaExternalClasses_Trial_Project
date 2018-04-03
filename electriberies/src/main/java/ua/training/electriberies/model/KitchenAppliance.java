@@ -1,8 +1,8 @@
 package ua.training.electriberies.model;
 
-public class KitchenAppliance extends ElectricalAppliance {
+public class KitchenAppliance extends ElectricalApplianceAbstractImp {
 	
-	private int volume; // liters
+	private Integer volume; // liters
 
 	public KitchenAppliance(String name, int power, String location, int volume) {
 		super(name, power, 220, location);

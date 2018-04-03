@@ -1,51 +1,20 @@
 package ua.training.electriberies.model;
 
-public abstract class ElectricalAppliance {
+public interface ElectricalAppliance {
 	
-	protected String name;
-	protected boolean switched = false;
-	protected int power; // watts
-	protected int voltage; // volts
-	protected String location; // room
+	public String getName();
+
+	public boolean isSwitched();
+
+	public void setSwitched(boolean switched);
+
+	public int getPower() ;
 	
-	public ElectricalAppliance(String name, int power, int voltage, String location) {
-		super();
-		this.name = name;
-		this.power = power;
-		this.voltage = voltage;
-		this.location = location;
-	}
+	public int getVoltage();
 
-	public String getName() {
-		return name;
-	}
-
-	public boolean isSwitched() {
-		return switched;
-	}
-
-	public void setSwitched(boolean switched) {
-		this.switched = switched;
-	}
-
-	public int getPower() {
-		return power;
-	}
-
-	public int getVoltage() {
-		return voltage;
-	}
-
-	public String getLocation() {
-		return location;
-	}
+	public String getLocation();
 	
-	public boolean match(int powerFrom, int powerTo, int voltageFrom, int voltageTo) {
-		return ( 
-				(this.power >= powerFrom && this.power <= powerTo) &&
-				(this.voltage >= voltageFrom && this.voltage <= voltageTo)
-			);
-	}
+	public boolean match(int powerFrom, int powerTo, int voltageFrom, int voltageTo);
 	
 	public abstract String doWork();
 

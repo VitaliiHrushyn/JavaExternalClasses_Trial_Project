@@ -1,8 +1,8 @@
 package ua.training.electriberies.model;
 
-public class LightingDevices extends ElectricalAppliance {	
+public class LightingDevices extends ElectricalApplianceAbstractImp {	
 
-	private int lightOutput; // lumens
+	private Integer lightOutput; // lumens
 	
 	public LightingDevices(String name, int power, String location, int lightOutput) {
 		super(name, power, 220, location);

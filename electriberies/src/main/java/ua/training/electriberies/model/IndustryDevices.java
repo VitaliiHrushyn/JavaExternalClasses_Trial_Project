@@ -1,19 +1,19 @@
 package ua.training.electriberies.model;
 
-public class IndustryDevices extends ElectricalAppliance {
+public class IndustryDevices extends ElectricalApplianceAbstractImp {
 	
-	private int rotorSpeed;
+	private Integer rotorSpeed;
 	
 	public IndustryDevices(String name, int power, String location) {
 		super(name, power, 380, location);
 		this.rotorSpeed = 800; // defaul value
 	}
 
-	public int getRotorSpeed() {
+	public Integer getRotorSpeed() {
 		return rotorSpeed;
 	}
 
-	public void setRotorSpeed(int rotorSpeed) {
+	public void setRotorSpeed(Integer rotorSpeed) {
 		this.rotorSpeed = rotorSpeed;
 	}
 

@@ -3,9 +3,10 @@ package ua.training.electriberies.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Deprecated
 public class ElectricalApplianceDataSource {
 	
-	private static List<ElectricalAppliance> devices = new CopyOnWriteArrayList<>();
+	private static List<ElectricalApplianceAbstractImp> devices = new CopyOnWriteArrayList<>();
 	
 	static {
 		devices.add(new HeatingDevice("heater", 1800, "hall"));
@@ -26,7 +27,7 @@ public class ElectricalApplianceDataSource {
 		super();
 	}
 	
-	public static List<ElectricalAppliance> getAllDevices() {
+	public static List<ElectricalApplianceAbstractImp> getAllDevices() {
 		return devices;
 	}
 }

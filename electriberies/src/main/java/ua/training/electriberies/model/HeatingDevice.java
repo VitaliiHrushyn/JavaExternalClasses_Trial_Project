@@ -1,25 +1,25 @@
 package ua.training.electriberies.model;
 
-public class HeatingDevice extends ElectricalAppliance {	
+public class HeatingDevice extends ElectricalApplianceAbstractImp {	
 
-	private int temperatura;
+	private Integer temperature;
 	
 	public HeatingDevice(String name, int power, String location) {
 		super(name, power, 220, location);
-		this.temperatura = 20; // default temperatura
+		this.temperature = 20; // default temperatura
 	}
 
 	public int getTemperatura() {
-		return temperatura;
+		return temperature;
 	}
 
-	public void setTemperatura(int temperatura) {
-		this.temperatura = temperatura;
+	public void setTemperatura(Integer temperatura) {
+		this.temperature = temperatura;
 	}
 
 	@Override
 	public String doWork() {
-		return (switched) ? (name + " is heating with temperature: " + temperatura) : "nothing";
+		return (switched) ? (name + " is heating with temperature: " + temperature) : "nothing";
 	}
 
 }

@@ -1,9 +1,9 @@
 package ua.training.electriberies.model;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import ua.training.electriberies.model.ElectricalAppliance;
 
 public class ElectricalApplianceUtil {
 	
@@ -23,16 +23,19 @@ public class ElectricalApplianceUtil {
 			}
 		}			
 	}
+	private static List<ElectricalAppliance> getAllDevices() {
+		return Arrays.asList(DataSourceStub.values());
+	}
 	
 	static public List<ElectricalAppliance> showAllDevises() {
-		List<ElectricalAppliance> devices = ElectricalApplianceDataSource.getAllDevices();
+		List<ElectricalAppliance> devices = getAllDevices();
 		devices.sort(new electroComparator());
 		return devices;
 	}
 	
 	static public List<ElectricalAppliance> findDevises(int powerFrom, int powerTo, int voltageFrom, int voltageTo) {
 		List<ElectricalAppliance> filteredDevices = new CopyOnWriteArrayList<>();
-		for (ElectricalAppliance device : ElectricalApplianceDataSource.getAllDevices()) {
+		for (ElectricalAppliance device : getAllDevices()) {
 			if (device.match(powerFrom, powerTo, voltageFrom, voltageTo)) {
 				filteredDevices.add(device);
 			}
@@ -41,17 +44,17 @@ public class ElectricalApplianceUtil {
 		return filteredDevices;
 	}
 	
-	static public int showTotalPower() {
+	static public int showTotalPower(List<ElectricalAppliance> devices) {
 		int totalPower = 0;
-		for (ElectricalAppliance device : ElectricalApplianceDataSource.getAllDevices()) {
+		for (ElectricalAppliance device : devices) {
 			totalPower += device.getPower();
 		}
 		return totalPower;
 	}
 	
-	static public int showCurrentPower() {
+	static public int showCurrentPower(List<ElectricalAppliance> devices) {
 		int currentPower = 0;
-		for (ElectricalAppliance device : ElectricalApplianceDataSource.getAllDevices()) {
+		for (ElectricalAppliance device : devices) {
 			if (device.isSwitched()) currentPower += device.getPower();
 		}
 		return currentPower;

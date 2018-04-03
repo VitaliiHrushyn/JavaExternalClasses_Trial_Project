@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import ua.training.electriberies.model.ElectricalAppliance;
+import ua.training.electriberies.model.ElectricalApplianceAbstractImp;
 import ua.training.electriberies.model.ElectricalApplianceUtil;
 
 public class FindDevicesCommand implements Command {
@@ -18,6 +19,8 @@ public class FindDevicesCommand implements Command {
 		List<ElectricalAppliance> filteredDevices = 
 				ElectricalApplianceUtil.findDevises(powerFrom, powerTo, voltageFrom, voltageTo);
 		request.setAttribute("findeddevices", filteredDevices);
+		request.setAttribute("totalPower", ElectricalApplianceUtil.showTotalPower(filteredDevices));
+		request.setAttribute("currentPower", ElectricalApplianceUtil.showCurrentPower(filteredDevices));
 		return "/finddevice.jsp";
 	}
 

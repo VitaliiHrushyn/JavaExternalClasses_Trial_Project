@@ -34,6 +34,13 @@
 		</menu>
 		<br>
 		<hr>
+			<c:set var="totalPower" value="${requestScope.totalPower}"/>
+			Total power: ${totalPower}
+			<br>
+			<c:set var="totalPower" value="${requestScope.currentPower}"/>
+			Current power: ${currentPower}
+			<br>
+		<hr>
 		<h4>Devices: <em>(switched ON first)</em></h4>
 			<c:forEach var="device" items="${requestScope.findeddevices}">
 				<ul>	
