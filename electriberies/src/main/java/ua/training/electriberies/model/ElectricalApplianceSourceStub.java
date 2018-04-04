@@ -1,6 +1,6 @@
 package ua.training.electriberies.model;
 
-public enum DataSourceStub implements ElectricalAppliance {
+public enum ElectricalApplianceSourceStub implements ElectricalAppliance {
 	HEATER("heater", false, 1800, 220, "hall", 20, null, null, null) {
 		@Override
 		public String doWork() {
@@ -56,7 +56,7 @@ public enum DataSourceStub implements ElectricalAppliance {
 	
 	
 
-	private DataSourceStub(String name, boolean switched, int power, int voltage, String location, Integer temperature,
+	private ElectricalApplianceSourceStub(String name, boolean switched, int power, int voltage, String location, Integer temperature,
 			Integer rotorSpeed, Integer volume, Integer lightOut) {
 		this.name = name;
 		this.switched = switched;

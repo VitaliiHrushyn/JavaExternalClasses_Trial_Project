@@ -27,11 +27,11 @@
 			  <fieldset>
 			    <legend>Register form</legend>
 			    login:<br>
-			    <input type="text" name="login" value=""><br>
+			    <input type="text" name="reglogin" value=""><br>
 			    Password:<br>
-			    <input type="password" name="password"><br>
+			    <input type="password" name="regppassword"><br>
 			    Confirm password:<br>
-			    <input type="password" name="cofirmpassword"><br><br>
+			    <input type="password" name="regcofirmpassword"><br><br>
 			    <input type="submit" value="Submit">
 			  </fieldset>
 			</form>
