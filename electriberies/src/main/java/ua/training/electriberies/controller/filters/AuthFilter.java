@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import ua.training.electriberies.model.User;
 import ua.training.electriberies.model.UsersDataSourseStub;
 
-//@WebFilter(urlPatterns="/*")
+@WebFilter(urlPatterns="/*")
 public class AuthFilter implements Filter {
 
 	@Override
@@ -26,11 +26,23 @@ public class AuthFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain arg2)
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
+		
+	//	String url = ((HttpServletRequest) request).getRequestURL().toString();
+		 
+		 
+//		HttpSession session = request.getSession();
+//		Login login = (Login) session.getAttribute("login");
+// 
+//		if (url.indexOf("login") > 0 || (login != null && login.isAuth())) {
+//			chain.doFilter(request, response);
+//		} else {
+//			((HttpServletRequest) request).getRequestDispatcher("/index").forward(request, response);
+//		}
 		
 		final String login;
 		final String password;
@@ -46,7 +58,7 @@ public class AuthFilter implements Filter {
 		System.out.println(role);
 			
 		if (role != null) {
-			moveToMenu(role, request, response);
+			chain.doFilter(request, response);
 		} else {			
 			if (UsersDataSourseStub.isUserExists(login, password)) {
 				session.setAttribute("role", UsersDataSourseStub.getUserByLogin(login).getRole());
