@@ -5,36 +5,51 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Guest page</title>
+	 <style type="text/css">
+   .block1 { 
+    width: 500px; 
+    background: #ccc;
+    padding: 15px;
+    border: solid 1px black; 
+    align: center;
+   }
+  </style> 
 	</head>
 	<body>
 		<center>
 			<h1>Hello, guest!</h1>
-			<h3>Please, login or register</h3>
+			<h3>Please, login</h3>
 			<br>
-			<form method ="post" action="${pageContext.request.contextPath}/app/login">
-			  <fieldset>
-			    <legend>Login form</legend>
-			    login:<br>
-			    <input type="text" name="login" value=""><br>
-			    Password:<br>
-			    <input type="password" name="password"><br><br>
-			    <input type="submit" value="Submit">
-			  </fieldset>
-			</form>
+			<div class="block1">
+				<form method ="post" action="${pageContext.request.contextPath}/app/login">
+				  <fieldset>
+				    <legend>Login form</legend>
+				    login:<br>
+				    <input type="text" name="login" value=""><br>
+				    Password:<br>
+				    <input type="password" name="password"><br><br>
+				    <input type="submit" value="Submit">
+				  </fieldset>
+				</form>
+			</div>
 			<br>
+	<!--  		<h3>or register</h3>
 			<br>
-			<form method ="post" action="${pageContext.request.contextPath}/app/registration">
-			  <fieldset>
-			    <legend>Register form</legend>
-			    login:<br>
-			    <input type="text" name="reglogin" value=""><br>
-			    Password:<br>
-			    <input type="password" name="regppassword"><br>
-			    Confirm password:<br>
-			    <input type="password" name="regcofirmpassword"><br><br>
-			    <input type="submit" value="Submit">
-			  </fieldset>
-			</form>
+			<div class="block1">
+				<form method ="post" action="${pageContext.request.contextPath}/app/registration">
+				  <fieldset>
+				    <legend>Register form</legend>
+				    login:<br>
+				    <input type="text" name="reglogin" value=""><br>
+				    Password:<br>
+				    <input type="password" name="regppassword"><br>
+				    Confirm password:<br>
+				    <input type="password" name="regcofirmpassword"><br><br>
+				    <input type="submit" value="Submit">
+				  </fieldset>
+				</form>
+			</div>
+			-->
 		</center>
 	</body>
 </html> 

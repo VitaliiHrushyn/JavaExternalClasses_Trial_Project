@@ -32,20 +32,11 @@ public class AuthFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
-	//	String url = ((HttpServletRequest) request).getRequestURL().toString();
-		 
-		 
-//		HttpSession session = request.getSession();
-//		Login login = (Login) session.getAttribute("login");
-// 
-//		if (url.indexOf("login") > 0 || (login != null && login.isAuth())) {
-//			chain.doFilter(request, response);
-//		} else {
-//			((HttpServletRequest) request).getRequestDispatcher("/index").forward(request, response);
-//		}
-		
 		final String login;
 		final String password;
+//		final String reglogin;
+//		final String regpassword;
+//		final String regconfirmpassword;
 		final User.Role role;
 		
 		final HttpSession session = request.getSession();
@@ -53,6 +44,10 @@ public class AuthFilter implements Filter {
 		
 		login = request.getParameter("login");
 		password = request.getParameter("password");
+//		reglogin = request.getParameter("reglogin");
+//		regpassword = request.getParameter("regpassword");
+//		regconfirmpassword = request.getParameter("regconfirmpassword");
+
 		role = (User.Role) session.getAttribute("role");
 		
 		System.out.println(role);
@@ -73,13 +68,11 @@ public class AuthFilter implements Filter {
 			if (role.equals(User.Role.ADMIN)) {
 				path = "/login.jsp";
 			}
-			if (role.equals(User.Role.ADMIN)) {
+			if (role.equals(User.Role.USER)) {
 				path = "/login.jsp";
 			}
 		}
-		request.getRequestDispatcher(path).forward(request, response);
-		
-		
+		request.getRequestDispatcher(path).forward(request, response);	
 	}
 
 	@Override

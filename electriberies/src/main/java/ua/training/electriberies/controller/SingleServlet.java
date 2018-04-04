@@ -22,13 +22,6 @@ public class SingleServlet extends HttpServlet {
 	
 	Map<String, Command> commands;
 
-    /**
-     * Default constructor. 
-     */
-    public SingleServlet() {
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
@@ -57,8 +50,8 @@ public class SingleServlet extends HttpServlet {
 	}
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] temp = request.getRequestURI().split("/");
-		String commandName = temp[temp.length - 1];
+		String[] URIArr = request.getRequestURI().split("/");
+		String commandName = URIArr[URIArr.length - 1];
 		String path = commands.getOrDefault(commandName, (r)->commands.get("index").execute(request)).execute(request);
 		
 		request.getRequestDispatcher(path).forward(request, response);

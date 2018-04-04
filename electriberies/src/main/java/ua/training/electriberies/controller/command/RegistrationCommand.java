@@ -6,11 +6,11 @@ public class RegistrationCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
-		String confirmPassword = request.getParameter("confirmPassword");
+		String reglogin = request.getParameter("reglogin");
+		String regpassword = request.getParameter("regpassword");
+		String regconfirmPassword = request.getParameter("regconfirmPassword");
 		
-		request.setAttribute("login", login);
+		request.setAttribute("reglogin", reglogin);
 		
 		if (checkLoginPassword()) {
 			return "/registrationSuccess.jsp";
