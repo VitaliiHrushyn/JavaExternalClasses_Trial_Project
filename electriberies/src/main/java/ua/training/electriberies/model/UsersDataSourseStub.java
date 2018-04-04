@@ -34,5 +34,4 @@ public class UsersDataSourseStub {
 		return false;
 	}
 
-
 }

@@ -20,10 +20,7 @@ import ua.training.electriberies.model.UsersDataSourseStub;
 public class AuthFilter implements Filter {
 
 	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void destroy() {}
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
@@ -34,9 +31,6 @@ public class AuthFilter implements Filter {
 		
 		final String login;
 		final String password;
-//		final String reglogin;
-//		final String regpassword;
-//		final String regconfirmpassword;
 		final User.Role role;
 		
 		final HttpSession session = request.getSession();
@@ -44,25 +38,20 @@ public class AuthFilter implements Filter {
 		
 		login = request.getParameter("login");
 		password = request.getParameter("password");
-//		reglogin = request.getParameter("reglogin");
-//		regpassword = request.getParameter("regpassword");
-//		regconfirmpassword = request.getParameter("regconfirmpassword");
 
 		role = (User.Role) session.getAttribute("role");
-		
-		System.out.println(role);
-			
+					
 		if (role != null) {
 			chain.doFilter(request, response);
 		} else {			
 			if (UsersDataSourseStub.isUserExists(login, password)) {
 				session.setAttribute("role", UsersDataSourseStub.getUserByLogin(login).getRole());
 			}
-			moveToMenu((User.Role) session.getAttribute("role"), request, response);
+			moveAhead((User.Role) session.getAttribute("role"), request, response);
 		}		
 	}
 
-	private void moveToMenu(User.Role role, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void moveAhead(User.Role role, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/index.jsp";
 		if (role != null) {
 			if (role.equals(User.Role.ADMIN)) {
@@ -76,9 +65,6 @@ public class AuthFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void init(FilterConfig arg0) throws ServletException {}
 
 }
