@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import ua.training.electriberies.model.User;
 import ua.training.electriberies.model.UsersDataSourseStub;
@@ -63,7 +64,7 @@ public class AuthFilter implements Filter {
 	}
 
 	private void moveToMenu(User.Role role, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "/index.jsp";
+		String path = "/";
 		if (role != null) {
 			if (role.equals(User.Role.ADMIN)) {
 				path = "/login.jsp";
@@ -72,6 +73,8 @@ public class AuthFilter implements Filter {
 				path = "/login.jsp";
 			}
 		}
+		System.out.println(request.getContextPath());
+	//	response.sendRedirect(request.getContextPath() + "/index.jsp");
 		request.getRequestDispatcher(path).forward(request, response);	
 	}
 
