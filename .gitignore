@@ -23,5 +23,6 @@ hs_err_pid*
 /.metadata/
 /.settings/
 /.recommenders/
+/pom.properties/
 /RemoteSystemsTempFiles/
 /Servers/
