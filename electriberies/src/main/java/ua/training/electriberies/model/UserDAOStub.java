@@ -3,7 +3,7 @@ package ua.training.electriberies.model;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class UsersDataSourseStub {
+public class UserDAOStub {
 	
 	static private List<User> users = new CopyOnWriteArrayList<>();
 	
@@ -32,6 +32,15 @@ public class UsersDataSourseStub {
 			}
 		}
 		return false;
+	}
+	
+	public static String[] getAllLogins() {
+		String[] logins = new String[users.size()];
+		int i = 0;
+		for (User user : users) {
+			logins[i++] = user.getLogin();
+		}
+		return logins;
 	}
 
 

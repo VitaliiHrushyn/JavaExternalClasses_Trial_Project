@@ -12,19 +12,15 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
 import ua.training.electriberies.model.User;
-import ua.training.electriberies.model.UsersDataSourseStub;
+import ua.training.electriberies.model.UserDAOStub;
 
-@WebFilter(urlPatterns="/*")
+@WebFilter(urlPatterns="/app/*")
 public class AuthFilter implements Filter {
 
 	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void destroy() {}
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
@@ -35,9 +31,9 @@ public class AuthFilter implements Filter {
 		
 		final String login;
 		final String password;
-//		final String reglogin;
-//		final String regpassword;
-//		final String regconfirmpassword;
+		final String regLogin;
+		final String regPassword;
+		final String regConfirmPassword;
 		final User.Role role;
 		
 		final HttpSession session = request.getSession();
@@ -45,25 +41,35 @@ public class AuthFilter implements Filter {
 		
 		login = request.getParameter("login");
 		password = request.getParameter("password");
-//		reglogin = request.getParameter("reglogin");
-//		regpassword = request.getParameter("regpassword");
-//		regconfirmpassword = request.getParameter("regconfirmpassword");
+		regLogin = request.getParameter("reglogin");
+		regPassword = request.getParameter("regpassword");
+		regConfirmPassword = request.getParameter("regconfirmpassword");
 
 		role = (User.Role) session.getAttribute("role");
 		
 		System.out.println(role);
-			
+		
 		if (role != null) {
 			chain.doFilter(request, response);
-		} else {			
-			if (UsersDataSourseStub.isUserExists(login, password)) {
-				session.setAttribute("role", UsersDataSourseStub.getUserByLogin(login).getRole());
+		} else {
+			
+			System.out.println("else");
+		
+			if (regLogin != null && regPassword != null && regPassword.equals(regConfirmPassword)) {
+				session.setAttribute("role", User.Role.REGISTRANT);
+				System.out.println("registrant filter");
+				}
+			if (login != null && password != null && UserDAOStub.isUserExists(login, password)) {
+				session.setAttribute("role", UserDAOStub.getUserByLogin(login).getRole());
 			}
-			moveToMenu((User.Role) session.getAttribute("role"), request, response);
-		}		
+			moveAhead((User.Role) session.getAttribute("role"), request, response);
+		}
+		
 	}
 
-	private void moveToMenu(User.Role role, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void moveAhead(User.Role role, HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+			
 		String path = "/";
 		if (role != null) {
 			if (role.equals(User.Role.ADMIN)) {
@@ -72,16 +78,14 @@ public class AuthFilter implements Filter {
 			if (role.equals(User.Role.USER)) {
 				path = "/login.jsp";
 			}
+			if (role.equals(User.Role.REGISTRANT)) {
+				path = "/registration.jsp";
+			} 
 		}
-		System.out.println(request.getContextPath());
-	//	response.sendRedirect(request.getContextPath() + "/index.jsp");
 		request.getRequestDispatcher(path).forward(request, response);	
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void init(FilterConfig arg0) throws ServletException {}
 
 }

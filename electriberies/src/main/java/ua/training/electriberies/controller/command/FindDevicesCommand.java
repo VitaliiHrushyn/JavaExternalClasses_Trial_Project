@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import ua.training.electriberies.model.ElectricalAppliance;
-import ua.training.electriberies.model.ElectricalApplianceAbstractImp;
 import ua.training.electriberies.model.ElectricalApplianceUtil;
 
 public class FindDevicesCommand implements Command {

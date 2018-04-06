@@ -9,8 +9,8 @@
 	<body>
 		<h1>Registration page</h1>
 		<br>
-		<c:set var="login" value="${requestScope.login}"/>
-		<h3>${login}, you've been successfully registered.</h3>
+		<c:set var="message" value="${requestScope.message}"/>
+		<h3>${message}.</h3>
 		<br>
 		<menu>
 			<h3>Menu</h3>

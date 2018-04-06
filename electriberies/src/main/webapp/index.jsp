@@ -33,7 +33,9 @@
 				</form>
 			</div>
 			<br>
-	<!--  		<h3>or register</h3>
+			<p><c:out value="${requestScope.message}"/></p>
+			<br>
+	  		<h3>or register</h3>
 			<br>
 			<div class="block1">
 				<form method ="post" action="${pageContext.request.contextPath}/app/registration">
@@ -42,14 +44,13 @@
 				    login:<br>
 				    <input type="text" name="reglogin" value=""><br>
 				    Password:<br>
-				    <input type="password" name="regppassword"><br>
+				    <input type="password" name="regpassword"><br>
 				    Confirm password:<br>
-				    <input type="password" name="regcofirmpassword"><br><br>
+				    <input type="password" name="regconfirmpassword"><br><br>
 				    <input type="submit" value="Submit">
 				  </fieldset>
 				</form>
 			</div>
-			-->
 		</center>
 	</body>
 </html> 
