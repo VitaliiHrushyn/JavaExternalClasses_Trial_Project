@@ -1,12 +1,12 @@
 package ua.training.electriberies.model.entity.devices;
 
-public class KitchenAppliance extends ElectricalApplianceAbstractImp {
+public class KitchenAppliance extends DeviceAbstractImp {
 	
-	private Integer volume; // liters
+	private Integer volume = 2; // liters	
+	
 
-	public KitchenAppliance(String name, int power, String location, int volume) {
-		super(name, power, 220, location);
-		this.volume = volume;
+	public KitchenAppliance() {
+		super();
 	}
 
 	public int getVolume() {
@@ -15,7 +15,7 @@ public class KitchenAppliance extends ElectricalApplianceAbstractImp {
 
 	@Override
 	public String doWork() {
-		return (switched) ? (name + " is cooking " + volume + " liters  of goodies") : "nothing";
+		return (super.isSwitched()) ? (super.getName() + " is cooking " + volume + " liters  of goodies") : "nothing";
 	}
 
 }

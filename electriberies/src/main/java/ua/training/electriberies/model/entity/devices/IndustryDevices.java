@@ -1,12 +1,12 @@
 package ua.training.electriberies.model.entity.devices;
 
-public class IndustryDevices extends ElectricalApplianceAbstractImp {
+public class IndustryDevices extends DeviceAbstractImp {
 	
-	private Integer rotorSpeed;
+	private Integer rotorSpeed = 800;	
 	
-	public IndustryDevices(String name, int power, String location) {
-		super(name, power, 380, location);
-		this.rotorSpeed = 800; // defaul value
+	
+	public IndustryDevices() {
+		super();
 	}
 
 	public Integer getRotorSpeed() {
@@ -19,7 +19,7 @@ public class IndustryDevices extends ElectricalApplianceAbstractImp {
 
 	@Override
 	public String doWork() {
-		return (switched) ? (name + " is rotating with speed of " + rotorSpeed) : "nothing";
+		return (super.isSwitched()) ? (super.getName() + " is rotating with speed of " + rotorSpeed) : "nothing";
 	}
 
 }

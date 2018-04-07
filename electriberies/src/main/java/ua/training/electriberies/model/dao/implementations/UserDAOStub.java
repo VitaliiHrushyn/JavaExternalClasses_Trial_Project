@@ -1,4 +1,4 @@
-package ua.training.electriberies.model.dao;
+package ua.training.electriberies.model.dao.implementations;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

@@ -1,12 +1,11 @@
 package ua.training.electriberies.model.entity.devices;
 
-public class HeatingDevice extends ElectricalApplianceAbstractImp {	
+public class HeatingDevice extends DeviceAbstractImp {	
 
-	private Integer temperature;
+	private Integer temperature = 20;
 	
-	public HeatingDevice(String name, int power, String location) {
-		super(name, power, 220, location);
-		this.temperature = 20; // default temperatura
+	public HeatingDevice() {
+		super();
 	}
 
 	public int getTemperatura() {
@@ -19,7 +18,7 @@ public class HeatingDevice extends ElectricalApplianceAbstractImp {
 
 	@Override
 	public String doWork() {
-		return (switched) ? (name + " is heating with temperature: " + temperature) : "nothing";
+		return (super.isSwitched()) ? (super.getName() + " is heating with temperature: " + temperature) : "nothing";
 	}
 
 }

@@ -3,7 +3,7 @@ package ua.training.electriberies.controller.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import ua.training.electriberies.model.dao.UserDAOStub;
+import ua.training.electriberies.model.dao.implementations.UserDAOStub;
 import ua.training.electriberies.model.entity.users.UserImp;
 import ua.training.electriberies.model.entity.users.UserRole;
 

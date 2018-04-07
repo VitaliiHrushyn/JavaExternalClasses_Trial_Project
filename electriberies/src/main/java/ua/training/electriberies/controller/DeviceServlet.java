@@ -1,6 +1,7 @@
 package ua.training.electriberies.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import ua.training.electriberies.controller.command.*;
  * Servlet implementation class SingleServlet
  */
 @WebServlet("/app/*")
-public class DevicesServlet extends HttpServlet {
+public class DeviceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Map<String, Command> commands;
@@ -39,7 +40,12 @@ public class DevicesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+		try {
+			processRequest(request, response);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -49,7 +55,7 @@ public class DevicesServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 		String[] URIArr = request.getRequestURI().split("/");
 		String commandName = URIArr[URIArr.length - 1];
 		String path = commands.getOrDefault(commandName, (r)->commands.get("index").execute(request)).execute(request);

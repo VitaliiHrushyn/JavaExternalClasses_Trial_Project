@@ -1,12 +1,11 @@
 package ua.training.electriberies.model.entity.devices;
 
-public class LightingDevices extends ElectricalApplianceAbstractImp {	
+public class LightingDevices extends DeviceAbstractImp {	
 
-	private Integer lightOutput; // lumens
+	private Integer lightOutput = 200; // lumens
 	
-	public LightingDevices(String name, int power, String location, int lightOutput) {
-		super(name, power, 220, location);
-		this.lightOutput = lightOutput;
+	public LightingDevices() {
+		super();
 	}
 
 	public int getLightOutput() {
@@ -15,7 +14,7 @@ public class LightingDevices extends ElectricalApplianceAbstractImp {
 
 	@Override
 	public String doWork() {
-		return (switched) ? (name + " is lightening of " + lightOutput + " lumens") : "nothing";
+		return (super.isSwitched()) ? (super.getName() + " is lightening of " + lightOutput + " lumens") : "nothing";
 	}
 
 }
