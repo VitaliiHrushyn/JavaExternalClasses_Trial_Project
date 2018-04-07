@@ -1,5 +1,5 @@
 # JavaExternalsClasses
-Trial project
+Trial project.
 
 Task.
 (native)
