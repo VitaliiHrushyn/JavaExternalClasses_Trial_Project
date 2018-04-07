@@ -3,7 +3,6 @@ package ua.training.electriberies.controller.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import ua.training.electriberies.model.dao.implementations.UserDAOStub;
 import ua.training.electriberies.model.entity.users.UserImp;
 import ua.training.electriberies.model.entity.users.UserRole;
 
@@ -39,22 +38,11 @@ public class RegistrationCommand implements Command {
 	
 
 	private boolean checkUniqueLogin() {
-		for (String login : UserDAOStub.getAllLogins()) {
-			if (regLogin.equals(login)) {
-				return false;
-			}
-		}
-		return true;
+		//ToDo
+		return false;
 	}
 
 	private void doRegistration() {
-		if (!regPassword.equals(regConfirmPassword)) {
-			interruptRegisteration();
-		} else {
-			UserDAOStub.addUser(new UserImp(regLogin, regPassword, UserRole.USER));
-			request.setAttribute("message", "User " + regLogin + " has been successfuly registred");
-			session.setAttribute("role", UserRole.USER);
-		}
 		
 		
 	}

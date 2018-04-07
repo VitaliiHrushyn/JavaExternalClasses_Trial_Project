@@ -1,0 +1,45 @@
+package electriberies.model.dao.implementations;
+
+import java.sql.Connection;
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import ua.training.electriberies.model.dao.implementations.MySQLDAOFactory;
+import ua.training.electriberies.model.dao.interfaces.DAOFactory;
+import ua.training.electriberies.model.dao.interfaces.DeviceDAO;
+import ua.training.electriberies.model.dao.interfaces.UserDAO;
+import ua.training.electriberies.model.entity.devices.Device;
+import ua.training.electriberies.model.entity.users.User;
+
+public class TestMySQLUserDAO {
+	
+	@Test
+	public void testGetAll() throws Exception {
+	    DAOFactory daoFactory = new MySQLDAOFactory();
+	    List<User> users;
+	    try (Connection connection = daoFactory.getConnection()) {
+	        UserDAO userDAO = daoFactory.getUserDAO(connection);
+	        users = userDAO.getAll();
+	    }	    
+	    Assert.assertNotNull(users);
+	    Assert.assertTrue(users.size() > 0);
+	    
+	//    System.out.println("testGetAll: " + users);
+	}
+	
+	@Test
+	public void testGetById() throws Exception {
+	    DAOFactory daoFactory = new MySQLDAOFactory();
+	    User user;
+	    try (Connection connection = daoFactory.getConnection()) {
+	        UserDAO userDAO = daoFactory.getUserDAO(connection);
+	        user = userDAO.getById(1);
+	    }	    
+	    Assert.assertNotNull(user);
+	    
+//	    System.out.println("testGetById: " + user);
+	}
+
+}

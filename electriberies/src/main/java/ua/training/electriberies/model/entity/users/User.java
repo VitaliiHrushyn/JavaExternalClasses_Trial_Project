@@ -2,6 +2,10 @@ package ua.training.electriberies.model.entity.users;
 
 public interface User {
 	
+	void setId(int id);
+	
+	int getId();
+	
 	void setLogin(String login);
 	
 	String getLogin();
