@@ -1,7 +1,13 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.dao;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import ua.training.electriberies.model.entity.devices.ElectricalApplianceAbstractImp;
+import ua.training.electriberies.model.entity.devices.HeatingDevice;
+import ua.training.electriberies.model.entity.devices.IndustryDevices;
+import ua.training.electriberies.model.entity.devices.KitchenAppliance;
+import ua.training.electriberies.model.entity.devices.LightingDevices;
 
 @Deprecated
 public class ElectricalApplianceDataSource {

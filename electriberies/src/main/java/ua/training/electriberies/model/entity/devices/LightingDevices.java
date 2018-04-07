@@ -1,4 +1,4 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.entity.devices;
 
 public class LightingDevices extends ElectricalApplianceAbstractImp {	
 

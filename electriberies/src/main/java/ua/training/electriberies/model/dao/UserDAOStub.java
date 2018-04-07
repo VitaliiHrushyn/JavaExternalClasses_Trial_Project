@@ -1,19 +1,22 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.dao;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import ua.training.electriberies.model.entity.users.UserImp;
+import ua.training.electriberies.model.entity.users.UserRole;
+
 public class UserDAOStub {
 	
-	static private List<User> users = new CopyOnWriteArrayList<>();
+	static private List<UserImp> users = new CopyOnWriteArrayList<>();
 	
 	/*Making one admin to work with*/
 	static {
-		users.add(new User("admin", "admin", User.Role.ADMIN));
+		users.add(new UserImp("admin", "admin", UserRole.ADMIN));
 	}
 	
-	public static User getUserByLogin(String login) {
-		for (User user : users) {
+	public static UserImp getUserByLogin(String login) {
+		for (UserImp user : users) {
 			if (user.getLogin().equals(login)) {
 				return user;
 			}
@@ -21,7 +24,7 @@ public class UserDAOStub {
 		return null;
 	}
 	
-	public static void addUser(User user) {
+	public static void addUser(UserImp user) {
 		users.add(user);
 	}
 	
@@ -37,7 +40,7 @@ public class UserDAOStub {
 	public static String[] getAllLogins() {
 		String[] logins = new String[users.size()];
 		int i = 0;
-		for (User user : users) {
+		for (UserImp user : users) {
 			logins[i++] = user.getLogin();
 		}
 		return logins;

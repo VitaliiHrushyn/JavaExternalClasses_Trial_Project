@@ -1,13 +1,13 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.entity.users;
 
-public class User {
+public class UserImp implements User {
 	
 	private String login;
 	private String password;
-	private Role role;
+	private UserRole role;
 	
 	
-	public User(String login, String password, Role role) {
+	public UserImp(String login, String password, UserRole role) {
 		super();
 		this.login = login;
 		this.password = password;
@@ -31,16 +31,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Role getRole() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
-	
-	public enum Role {
-		USER, ADMIN, REGISTRANT;
-	}
-
 }

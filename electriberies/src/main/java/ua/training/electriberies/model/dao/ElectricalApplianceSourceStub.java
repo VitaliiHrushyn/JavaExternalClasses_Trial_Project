@@ -1,4 +1,6 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.dao;
+
+import ua.training.electriberies.model.entity.devices.ElectricalAppliance;
 
 public enum ElectricalApplianceSourceStub implements ElectricalAppliance {
 	HEATER("heater", false, 1800, 220, "hall", 20, null, null, null) {
@@ -100,10 +102,9 @@ public enum ElectricalApplianceSourceStub implements ElectricalAppliance {
 	}
 
 	@Override
-	public boolean match(int powerFrom, int powerTo, int voltageFrom, int voltageTo) {
+	public boolean match(int powerFrom, int powerTo, int... voltages) {
 		return ( 
-				(this.power >= powerFrom && this.power <= powerTo) &&
-				(this.voltage >= voltageFrom && this.voltage <= voltageTo)
+				false
 			);
 	}
 

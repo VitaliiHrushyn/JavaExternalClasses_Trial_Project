@@ -5,6 +5,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import ua.training.electriberies.model.dao.ElectricalApplianceSourceStub;
+import ua.training.electriberies.model.entity.devices.ElectricalAppliance;
+
 public class ElectricalApplianceUtil {
 	
 	/**

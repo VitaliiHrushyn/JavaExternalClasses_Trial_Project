@@ -3,8 +3,9 @@ package ua.training.electriberies.controller.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import ua.training.electriberies.model.User;
-import ua.training.electriberies.model.UserDAOStub;
+import ua.training.electriberies.model.dao.UserDAOStub;
+import ua.training.electriberies.model.entity.users.UserImp;
+import ua.training.electriberies.model.entity.users.UserRole;
 
 public class RegistrationCommand implements Command {
 	
@@ -50,9 +51,9 @@ public class RegistrationCommand implements Command {
 		if (!regPassword.equals(regConfirmPassword)) {
 			interruptRegisteration();
 		} else {
-			UserDAOStub.addUser(new User(regLogin, regPassword, User.Role.USER));
+			UserDAOStub.addUser(new UserImp(regLogin, regPassword, UserRole.USER));
 			request.setAttribute("message", "User " + regLogin + " has been successfuly registred");
-			session.setAttribute("role", User.Role.USER);
+			session.setAttribute("role", UserRole.USER);
 		}
 		
 		

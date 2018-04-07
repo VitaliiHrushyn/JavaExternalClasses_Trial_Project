@@ -1,4 +1,4 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.entity.devices;
 
 public abstract class ElectricalApplianceAbstractImp implements ElectricalAppliance {
 	
@@ -40,13 +40,23 @@ public abstract class ElectricalApplianceAbstractImp implements ElectricalApplia
 		return location;
 	}
 	
-	public boolean match(int powerFrom, int powerTo, int voltageFrom, int voltageTo) {
-		return ( 
-				(this.power >= powerFrom && this.power <= powerTo) &&
-				(this.voltage >= voltageFrom && this.voltage <= voltageTo)
-			);
+	public boolean match(int powerFrom, int powerTo, int... voltages) {
+		return matchPower(powerFrom, powerTo) && matchVoltage(voltages);
+	}
+
+	private boolean matchPower(int powerFrom, int powerTo) {
+		return this.power >= powerFrom && this.power <= powerTo;
 	}
 	
+	private boolean matchVoltage(int... voltages) {
+		for (int i : voltages) {
+			if (this.voltage == i) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public abstract String doWork();
 
 }

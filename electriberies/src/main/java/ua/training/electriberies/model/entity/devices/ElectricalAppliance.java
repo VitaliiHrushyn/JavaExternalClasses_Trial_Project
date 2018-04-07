@@ -1,4 +1,4 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.entity.devices;
 
 public interface ElectricalAppliance {
 	
@@ -14,7 +14,7 @@ public interface ElectricalAppliance {
 
 	public String getLocation();
 	
-	public boolean match(int powerFrom, int powerTo, int voltageFrom, int voltageTo);
+	public boolean match(int powerFrom, int powerTo, int... voltages);
 	
 	public abstract String doWork();
 

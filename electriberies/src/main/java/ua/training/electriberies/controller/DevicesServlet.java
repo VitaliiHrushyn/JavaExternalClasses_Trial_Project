@@ -17,7 +17,7 @@ import ua.training.electriberies.controller.command.*;
  * Servlet implementation class SingleServlet
  */
 @WebServlet("/app/*")
-public class SingleServlet extends HttpServlet {
+public class DevicesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	Map<String, Command> commands;
