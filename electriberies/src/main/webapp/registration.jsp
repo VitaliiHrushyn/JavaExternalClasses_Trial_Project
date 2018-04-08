@@ -5,11 +5,20 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Registration</title>
+		<style type="text/css">
+		   .block1 { 
+		    width: 500px; 
+		    background: #ccc;
+		    padding: 15px;
+		    border: solid 1px black; 
+		    align: center;
+		   }
+	  </style> 
 	</head>
 	<body>
-		<h1>Registration page</h1>
-	
-			<br>
+		<center>
+			<h1>Registration page</h1>	
+			
 			<div class="block1">
 				<form method ="post" action="${pageContext.request.contextPath}/app/registration">
 				  <fieldset>
@@ -28,5 +37,9 @@
 		<c:set var="message" value="${requestScope.message}"/>
 		<h3>${message}.</h3>
 		<br>
+			<form method="post" action="${pageContext.request.contextPath}/app/logout">
+    		<button type="submit">Go to index page</button>
+			</form>
+		</center>
 	</body>
 </html>

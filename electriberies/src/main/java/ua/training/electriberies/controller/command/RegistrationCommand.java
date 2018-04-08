@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import ua.training.electriberies.model.entity.users.UserImp;
 import ua.training.electriberies.model.entity.users.UserRole;
+import ua.training.electriberies.model.service.UserService;
 
 public class RegistrationCommand implements Command {
 	
@@ -25,6 +26,8 @@ public class RegistrationCommand implements Command {
 		regLogin = request.getParameter("reglogin");
 		regPassword = request.getParameter("regpassword");
 		regConfirmPassword = request.getParameter("regconfirmpassword");
+		
+		String path = null;
 	
 		if (checkUniqueLogin()) {
 			doRegistration();
@@ -32,14 +35,17 @@ public class RegistrationCommand implements Command {
 			interruptRegisteration();
 		}	
 		
-		return "/profile.jsp";
+		return path;
 	}
 	
 	
 
 	private boolean checkUniqueLogin() {
-		//TODO 
-		return false;
+		if (UserService.getUserByLogin(regLogin) == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void doRegistration() {

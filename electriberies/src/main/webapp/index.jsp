@@ -35,6 +35,11 @@
 			<br>
 			<p><c:out value="${requestScope.message}"/></p>
 			<br>
+			<p> <h3>or</h3>			
+				<form method="post" action="${pageContext.request.contextPath}/registration.jsp">
+    			<button type="submit">Register</button>
+				</form>
+			</p>
 	  	</center>
 	</body>
 </html> 

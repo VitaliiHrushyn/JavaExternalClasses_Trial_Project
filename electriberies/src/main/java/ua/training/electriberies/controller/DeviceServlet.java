@@ -60,7 +60,13 @@ public class DeviceServlet extends HttpServlet {
 		String commandName = URIArr[URIArr.length - 1];
 		String path = commands.getOrDefault(commandName, (r)->commands.get("index").execute(request)).execute(request);
 		
-		request.getRequestDispatcher(path).forward(request, response);
+		if (path.contains("redirect:")) {
+			response.sendRedirect("/electriberies" + path.replace("redirect:", ""));
+			
+		} else {
+			request.getRequestDispatcher(path).forward(request, response);
+		}
+		
 	}
 
 }

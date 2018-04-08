@@ -47,6 +47,8 @@ public class AuthFilter implements Filter {
 		regPassword = request.getParameter("regpassword");
 		regConfirmPassword = request.getParameter("regconfirmpassword");
 
+		System.out.println(session.getAttribute("role"));
+		
 		role = (UserRole) session.getAttribute("role");
 		
 		System.out.println(role);
@@ -57,10 +59,10 @@ public class AuthFilter implements Filter {
 			
 			System.out.println("else");
 					
-			if (regLogin != null && regPassword != null && regPassword.equals(regConfirmPassword)) {
-				session.setAttribute("role", UserRole.REGISTRANT);
-				System.out.println("registrant filter");
-				}
+//			if (regLogin != null && regPassword != null && regPassword.equals(regConfirmPassword)) {
+//				session.setAttribute("role", UserRole.REGISTRANT);
+//				System.out.println("registrant filter");
+//				}
 			if (login != null && password != null && UserService.isUserExists(login, password)) {
 				session.setAttribute("role", UserService.getUserByLogin(login).getRole());
 				session.setAttribute("login", login);
