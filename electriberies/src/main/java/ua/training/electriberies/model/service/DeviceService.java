@@ -1,4 +1,4 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import ua.training.electriberies.model.dao.interfaces.DAOFactory;
 import ua.training.electriberies.model.dao.interfaces.DeviceDAO;
 import ua.training.electriberies.model.entity.devices.Device;
 
-public class DeviceUtil {
+public class DeviceService {
 	
 	private static DAOFactory daoFactory = new MySQLDAOFactory();
 		

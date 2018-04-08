@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ua.training.electriberies.model.UserUtil;
 import ua.training.electriberies.model.dao.interfaces.DAOFactory;
 import ua.training.electriberies.model.entity.users.UserRole;
+import ua.training.electriberies.model.service.UserService;
 
 @WebFilter(urlPatterns="/app/*")
 public class AuthFilter implements Filter {
@@ -60,8 +60,8 @@ public class AuthFilter implements Filter {
 				session.setAttribute("role", UserRole.REGISTRANT);
 				System.out.println("registrant filter");
 				}
-			if (login != null && password != null && UserUtil.isUserExists(login, password)) {
-				session.setAttribute("role", UserUtil.getUserByLogin(login).getRole());
+			if (login != null && password != null && UserService.isUserExists(login, password)) {
+				session.setAttribute("role", UserService.getUserByLogin(login).getRole());
 			}
 			moveAhead((UserRole) session.getAttribute("role"), request, response);
 		}

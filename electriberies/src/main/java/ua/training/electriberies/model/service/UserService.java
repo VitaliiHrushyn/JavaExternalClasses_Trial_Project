@@ -1,4 +1,4 @@
-package ua.training.electriberies.model;
+package ua.training.electriberies.model.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import ua.training.electriberies.model.dao.interfaces.DAOFactory;
 import ua.training.electriberies.model.dao.interfaces.UserDAO;
 import ua.training.electriberies.model.entity.users.User;
 
-public class UserUtil {
+public class UserService {
 	
 	private static DAOFactory daoFactory = new MySQLDAOFactory();
 		
