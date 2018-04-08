@@ -8,16 +8,25 @@
 	</head>
 	<body>
 		<h1>Registration page</h1>
-		<br>
+	
+			<br>
+			<div class="block1">
+				<form method ="post" action="${pageContext.request.contextPath}/app/registration">
+				  <fieldset>
+				    <legend>Register form</legend>
+				    login:<br>
+				    <input type="text" name="reglogin" value=""><br>
+				    Password:<br>
+				    <input type="password" name="regpassword"><br>
+				    Confirm password:<br>
+				    <input type="password" name="regconfirmpassword"><br><br>
+				    <input type="submit" value="Submit">
+				  </fieldset>
+				</form>
+			</div>
+				<br>
 		<c:set var="message" value="${requestScope.message}"/>
 		<h3>${message}.</h3>
 		<br>
-		<menu>
-			<h3>Menu</h3>
-			<br>
-			<a href="${pageContext.request.contextPath}/app/index">Logout</a>
-			<br>
-			<a href="${pageContext.request.contextPath}/app/login">My profile</a>
-		</menu>
 	</body>
 </html>

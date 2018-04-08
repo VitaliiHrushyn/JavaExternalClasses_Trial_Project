@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ua.training.electriberies.model.User;
-import ua.training.electriberies.model.UserDAOStub;
+import ua.training.electriberies.model.dao.interfaces.DAOFactory;
+import ua.training.electriberies.model.entity.users.UserRole;
+import ua.training.electriberies.model.service.UserService;
 
 @WebFilter(urlPatterns="/app/*")
 public class AuthFilter implements Filter {
@@ -34,10 +35,11 @@ public class AuthFilter implements Filter {
 		final String regLogin;
 		final String regPassword;
 		final String regConfirmPassword;
-		final User.Role role;
+		final UserRole role;
 		
 		final HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(30);
+		
+//		session.setMaxInactiveInterval(30);
 		
 		login = request.getParameter("login");
 		password = request.getParameter("password");
@@ -45,7 +47,7 @@ public class AuthFilter implements Filter {
 		regPassword = request.getParameter("regpassword");
 		regConfirmPassword = request.getParameter("regconfirmpassword");
 
-		role = (User.Role) session.getAttribute("role");
+		role = (UserRole) session.getAttribute("role");
 		
 		System.out.println(role);
 		
@@ -54,32 +56,34 @@ public class AuthFilter implements Filter {
 		} else {
 			
 			System.out.println("else");
-		
+					
 			if (regLogin != null && regPassword != null && regPassword.equals(regConfirmPassword)) {
-				session.setAttribute("role", User.Role.REGISTRANT);
+				session.setAttribute("role", UserRole.REGISTRANT);
 				System.out.println("registrant filter");
 				}
-			if (login != null && password != null && UserDAOStub.isUserExists(login, password)) {
-				session.setAttribute("role", UserDAOStub.getUserByLogin(login).getRole());
+			if (login != null && password != null && UserService.isUserExists(login, password)) {
+				session.setAttribute("role", UserService.getUserByLogin(login).getRole());
+				session.setAttribute("login", login);
+				session.setAttribute("message", "you've succesfuly entered to profile");
 			}
-			moveAhead((User.Role) session.getAttribute("role"), request, response);
+			moveAhead((UserRole) session.getAttribute("role"), request, response);
 		}
 		
 	}
 
-	private void moveAhead(User.Role role, HttpServletRequest request, HttpServletResponse response) 
+	private void moveAhead(UserRole role, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 			
 		String path = "/";
 		if (role != null) {
-			if (role.equals(User.Role.ADMIN)) {
-				path = "/login.jsp";
+			if (role.equals(UserRole.ADMIN)) {
+				path = "/profile.jsp";
 			}
-			if (role.equals(User.Role.USER)) {
-				path = "/login.jsp";
+			if (role.equals(UserRole.USER)) {
+				path = "/profile.jsp";
 			}
-			if (role.equals(User.Role.REGISTRANT)) {
-				path = "/registration.jsp";
+			if (role.equals(UserRole.REGISTRANT)) {
+				path = "/profile.jsp";
 			} 
 		}
 		request.getRequestDispatcher(path).forward(request, response);	
