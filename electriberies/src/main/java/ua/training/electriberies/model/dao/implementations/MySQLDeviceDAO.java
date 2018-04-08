@@ -10,6 +10,7 @@ import java.util.List;
 import ua.training.electriberies.model.dao.interfaces.DeviceDAO;
 import ua.training.electriberies.model.entity.devices.*;
 
+import static ua.training.electriberies.model.dao.QueryConstants.*;
 
 public class MySQLDeviceDAO implements DeviceDAO {
 	
@@ -28,20 +29,20 @@ public class MySQLDeviceDAO implements DeviceDAO {
 	@Override
 	public Device getById(int id) throws SQLException, InstantiationException, 
 								IllegalAccessException, ClassNotFoundException {
-		String sql = "SELECT * FROM devices WHERE iddevices = ?;";
-		PreparedStatement statement = connection.prepareStatement(sql);
+		PreparedStatement statement = connection.prepareStatement(GET_DEVICE_BY_ID_QUERY);
 		statement.setInt(1, id);
 		ResultSet rs = statement.executeQuery();
 		if (rs.next()) {
-			Device device = (Device) Class.forName(rs.getString("classname")).newInstance();
-			device.setId(rs.getInt("iddevices"));
-			device.setName(rs.getString("name"));
-			device.setPower(rs.getInt("power"));
-			device.setVoltage(rs.getInt("voltage"));
-			device.setSwitched(rs.getBoolean("switched"));
-			device.setLocation(rs.getString("location"));			
+			Device device = (Device) Class.forName(rs.getString(DEVICE_CLASS_NAME_COLUMN)).newInstance();
+			device.setId(rs.getInt(DEVICE_ID_COLUMN));
+			device.setName(rs.getString(DEVICE_NAME_COLUMN));
+			device.setPower(rs.getInt(DEVICE_POWER_COLUMN));
+			device.setVoltage(rs.getInt(DEVICE_VOLTAGE_COLUMN));
+			device.setSwitched(rs.getBoolean(DEVICE_SWITCHED_COLUMN));
+			device.setLocation(rs.getString(DEVICE_LOCATION_COLUMN));			
 		
 			return device;
+			
 		} else {
 			return null;
 		}
@@ -64,17 +65,16 @@ public class MySQLDeviceDAO implements DeviceDAO {
 	public List<Device> getAll() throws SQLException, ClassNotFoundException, 
 								InstantiationException, IllegalAccessException {
 		List<Device> devices = new LinkedList<>();
-		String sql = "SELECT * FROM devices";
-		PreparedStatement statement = connection.prepareStatement(sql);
+		PreparedStatement statement = connection.prepareStatement(GET_ALL_DEVICES_QUERY);
 		ResultSet rs = statement.executeQuery();
 		while(rs.next()) {
-			Device device = (Device) Class.forName(rs.getString("classname")).newInstance();
-			device.setId(rs.getInt("iddevices"));
-			device.setName(rs.getString("name"));
-			device.setPower(rs.getInt("power"));
-			device.setVoltage(rs.getInt("voltage"));
-			device.setSwitched(rs.getBoolean("switched"));
-			device.setLocation(rs.getString("location"));
+			Device device = (Device) Class.forName(rs.getString(DEVICE_CLASS_NAME_COLUMN)).newInstance();
+			device.setId(rs.getInt(DEVICE_ID_COLUMN));
+			device.setName(rs.getString(DEVICE_NAME_COLUMN));
+			device.setPower(rs.getInt(DEVICE_POWER_COLUMN));
+			device.setVoltage(rs.getInt(DEVICE_VOLTAGE_COLUMN));
+			device.setSwitched(rs.getBoolean(DEVICE_SWITCHED_COLUMN));
+			device.setLocation(rs.getString(DEVICE_LOCATION_COLUMN));
 			
 			devices.add(device);
 		}

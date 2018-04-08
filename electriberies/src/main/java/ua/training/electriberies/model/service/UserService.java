@@ -11,8 +11,7 @@ import ua.training.electriberies.model.entity.users.User;
 
 public class UserService {
 	
-	private static DAOFactory daoFactory = new MySQLDAOFactory();
-		
+	private static DAOFactory daoFactory = new MySQLDAOFactory();	
 	
 	
 	public static List<User> getAllUsers() {
@@ -21,7 +20,6 @@ public class UserService {
 	        UserDAO userDAO = daoFactory.getUserDAO(connection);
 	        users = userDAO.getAll();
 	    } catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		return users; 

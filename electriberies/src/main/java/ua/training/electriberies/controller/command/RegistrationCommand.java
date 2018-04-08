@@ -32,13 +32,13 @@ public class RegistrationCommand implements Command {
 			interruptRegisteration();
 		}	
 		
-		return "/registration.jsp";
+		return "/profile.jsp";
 	}
 	
 	
 
 	private boolean checkUniqueLogin() {
-		//ToDo
+		//TODO 
 		return false;
 	}
 

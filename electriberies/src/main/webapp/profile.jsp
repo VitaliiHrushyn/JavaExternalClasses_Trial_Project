@@ -7,7 +7,10 @@
 		<title>My profile</title>
 	</head>
 	<body>
-		<h2>My profile</h2>
+		<c:set var="login" value="${requestScope.login}"/>
+		<c:set var="message" value="${requestScope.message}"/>
+		<h2>${login}'s profile</h2>
+		<h3>${message}</h3>
 		<menu>
 			<h3>Menu</h3>
 			<a href="${pageContext.request.contextPath}/app/logout">Logout</a>

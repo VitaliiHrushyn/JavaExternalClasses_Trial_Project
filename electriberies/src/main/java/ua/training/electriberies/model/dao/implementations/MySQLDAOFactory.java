@@ -4,31 +4,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import ua.training.electriberies.model.dao.interfaces.DAOFactory;
-import ua.training.electriberies.model.dao.interfaces.DeviceDAO;
-import ua.training.electriberies.model.dao.interfaces.UserDAO;
+import static ua.training.electriberies.model.dao.MySQLConnectionConstants.*;
+import ua.training.electriberies.model.dao.interfaces.*;
 
-public class MySQLDAOFactory implements DAOFactory{
+public class MySQLDAOFactory implements DAOFactory {	
 	
-	private static final String URL = "jdbc:mysql://localhost/electriberies"
-			+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
-			;
-	
-	private static final String USERNAME = "root";
-	private static final String PASSWORD = "root";
-	
-	public MySQLDAOFactory() {
-	}
+	public MySQLDAOFactory() {}
 
 	public Connection getConnection() throws SQLException {
 		try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Class.forName(JDBC_DRIVER_NAME);
 		} 
 		catch (ClassNotFoundException e) {
-		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		} 
-		return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+		return DriverManager.getConnection(CONNECTION_URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
 	}
 	
 	@Override

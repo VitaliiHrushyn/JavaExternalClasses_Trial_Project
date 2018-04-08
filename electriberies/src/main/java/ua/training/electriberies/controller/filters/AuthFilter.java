@@ -38,7 +38,8 @@ public class AuthFilter implements Filter {
 		final UserRole role;
 		
 		final HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(30);
+		
+//		session.setMaxInactiveInterval(30);
 		
 		login = request.getParameter("login");
 		password = request.getParameter("password");
@@ -62,6 +63,8 @@ public class AuthFilter implements Filter {
 				}
 			if (login != null && password != null && UserService.isUserExists(login, password)) {
 				session.setAttribute("role", UserService.getUserByLogin(login).getRole());
+				session.setAttribute("login", login);
+				session.setAttribute("message", "you've succesfuly entered to profile");
 			}
 			moveAhead((UserRole) session.getAttribute("role"), request, response);
 		}
@@ -74,13 +77,13 @@ public class AuthFilter implements Filter {
 		String path = "/";
 		if (role != null) {
 			if (role.equals(UserRole.ADMIN)) {
-				path = "/login.jsp";
+				path = "/profile.jsp";
 			}
 			if (role.equals(UserRole.USER)) {
-				path = "/login.jsp";
+				path = "/profile.jsp";
 			}
 			if (role.equals(UserRole.REGISTRANT)) {
-				path = "/registration.jsp";
+				path = "/profile.jsp";
 			} 
 		}
 		request.getRequestDispatcher(path).forward(request, response);	
