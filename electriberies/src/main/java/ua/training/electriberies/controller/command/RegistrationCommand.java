@@ -27,7 +27,7 @@ public class RegistrationCommand implements Command {
 		regPassword = request.getParameter("regpassword");
 		regConfirmPassword = request.getParameter("regconfirmpassword");
 		
-		String path = null;
+		String path = "redirect:/registration.jsp";
 	
 		if (checkUniqueLogin()) {
 			doRegistration();

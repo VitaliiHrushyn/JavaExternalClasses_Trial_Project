@@ -76,7 +76,7 @@ public class AuthFilter implements Filter {
 	private void moveAhead(UserRole role, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 			
-		String path = "/";
+		String path = "/app/logout";
 		if (role != null) {
 			if (role.equals(UserRole.ADMIN)) {
 				path = "/profile.jsp";
