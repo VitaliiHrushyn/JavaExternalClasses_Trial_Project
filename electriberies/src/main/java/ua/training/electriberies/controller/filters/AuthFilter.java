@@ -50,13 +50,13 @@ public class AuthFilter implements Filter {
 		
 		role = (UserRole) session.getAttribute("role");
 		
-		System.out.println(role);
+//		System.out.println(role);
 		
 		if (role != null) {
 			chain.doFilter(request, response);
 		} else {
 			
-			System.out.println("else");
+//			System.out.println("else");
 					
 //			if (regLogin != null && regPassword != null && regPassword.equals(regConfirmPassword)) {
 //				session.setAttribute("role", UserRole.REGISTRANT);
@@ -67,24 +67,24 @@ public class AuthFilter implements Filter {
 				session.setAttribute("login", login);
 				session.setAttribute("message", "you've succesfuly entered to profile");
 			}
-			moveAhead((UserRole) session.getAttribute("role"), request, response);
+			moveToProfile((UserRole) session.getAttribute("role"), request, response);
 		}
 		
 	}
 
-	private void moveAhead(UserRole role, HttpServletRequest request, HttpServletResponse response) 
+	private void moveToProfile(UserRole role, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 			
 		String path = "/app/logout";
 		if (role != null) {
 			if (role.equals(UserRole.ADMIN)) {
-				path = "/profile.jsp";
+				path = "/app/login";
 			}
 			if (role.equals(UserRole.USER)) {
-				path = "/profile.jsp";
+				path = "/app/login";
 			}
 			if (role.equals(UserRole.REGISTRANT)) {
-				path = "/profile.jsp";
+				path = "/app/login";
 			} 
 		}
 		request.getRequestDispatcher(path).forward(request, response);	

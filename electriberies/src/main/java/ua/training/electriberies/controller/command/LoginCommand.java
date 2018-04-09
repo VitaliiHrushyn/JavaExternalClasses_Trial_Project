@@ -6,7 +6,7 @@ public class LoginCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		return "/profile.jsp";
+		return "/view/profile.jsp";
 	}
 
 }

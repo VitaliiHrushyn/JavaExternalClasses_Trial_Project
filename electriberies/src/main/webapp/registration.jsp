@@ -35,7 +35,7 @@
 			</div>
 				<br>
 		<c:set var="message" value="${requestScope.message}"/>
-		<h3>${message}.</h3>
+		<h4>${message}.</h4>
 		<br>
 			<form method="post" action="${pageContext.request.contextPath}/app/logout">
     		<button type="submit">Go to index page</button>

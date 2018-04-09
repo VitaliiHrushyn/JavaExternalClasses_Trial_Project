@@ -16,7 +16,7 @@ public class ShowDeviceCommand implements Command {
 		request.setAttribute("devices", devices);
 		request.setAttribute("totalPower", DeviceService.showTotalPower(devices));
 		request.setAttribute("currentPower", DeviceService.showCurrentPower(devices));
-		return "/showdevices.jsp";
+		return "/view/showdevices.jsp";
 	}
 
 }

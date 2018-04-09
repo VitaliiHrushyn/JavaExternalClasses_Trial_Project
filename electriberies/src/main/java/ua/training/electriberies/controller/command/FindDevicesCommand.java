@@ -21,7 +21,7 @@ public class FindDevicesCommand implements Command {
 		request.setAttribute("findeddevices", filteredDevices);
 		request.setAttribute("totalPower", DeviceService.showTotalPower(filteredDevices));
 		request.setAttribute("currentPower", DeviceService.showCurrentPower(filteredDevices));
-		return "/finddevice.jsp";
+		return "/view/finddevice.jsp";
 	}
 
 }
