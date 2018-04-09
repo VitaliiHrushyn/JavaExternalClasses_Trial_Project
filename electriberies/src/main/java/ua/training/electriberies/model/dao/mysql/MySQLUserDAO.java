@@ -1,4 +1,4 @@
-package ua.training.electriberies.model.dao.implementations;
+package ua.training.electriberies.model.dao.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,14 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ua.training.electriberies.model.dao.interfaces.UserDAO;
+import ua.training.electriberies.model.dao.common_interfaces.QueryConstants;
+import ua.training.electriberies.model.dao.common_interfaces.UserDAO;
 import ua.training.electriberies.model.entity.users.User;
 import ua.training.electriberies.model.entity.users.UserImp;
 import ua.training.electriberies.model.entity.users.UserRole;
 
-import static ua.training.electriberies.model.dao.QueryConstants.*;
-
 public class MySQLUserDAO implements UserDAO {
+	
+	private static final String GET_BY_ID = QueryConstants.GET_USER_BY_ID;
+	private static final String GET_ALL = QueryConstants.GET_ALL_USERS_QUERY;
+
+	private static final String ID = QueryConstants.USER_ID_COLUMN;
+	private static final String LOGIN = QueryConstants.USER_LOGIN_COLUMN;
+	private static final String PASSWORD = QueryConstants.USER_PASSWORD_COLUMN;
+	private static final String ROLE = QueryConstants.USER_ROLE_COLUMN;
 	
 	private Connection connection;
 
@@ -30,19 +37,22 @@ public class MySQLUserDAO implements UserDAO {
 
 	@Override
 	public User getById(int id) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ID);
+		PreparedStatement statement = connection.prepareStatement(GET_BY_ID);
 		statement.setInt(1, id);
 		ResultSet rs = statement.executeQuery();
-		User user = null;
+	//	User user = null;
 		rs.next();
-			int userid = rs.getInt(USER_ID_COLUMN);
-			String login = rs.getString(USER_LOGIN_COLUMN);
-			String password = rs.getString(USER_PASSWORD_COLUMN);
-			String role = rs.getString(USER_ROLE_COLUMN);
-			
-			user = new UserImp(userid, login, password, UserRole.valueOf(role));	
+		User user = makeUser(rs);		
+		return user;
+	}
+
+	private User makeUser(ResultSet rs) throws SQLException {
+		int userid = rs.getInt(ID);
+		String login = rs.getString(LOGIN);
+		String password = rs.getString(PASSWORD);
+		String role = rs.getString(ROLE);
 		
-			return user;
+		return new UserImp(userid, login, password, UserRole.valueOf(role));
 	}
 
 	@Override
@@ -59,16 +69,12 @@ public class MySQLUserDAO implements UserDAO {
 
 	@Override
 	public List<User> getAll() throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS_QUERY);
+		PreparedStatement statement = connection.prepareStatement(GET_ALL);
 		List<User> users = new ArrayList<>();
 		ResultSet rs = statement.executeQuery();
 		while(rs.next()) {
-			int userid = rs.getInt(USER_ID_COLUMN);
-			String login = rs.getString(USER_LOGIN_COLUMN);
-			String password = rs.getString(USER_PASSWORD_COLUMN);
-			String role = rs.getString(USER_ROLE_COLUMN);
-			
-			users.add(new UserImp(userid, login, password, UserRole.valueOf(role)));	
+			User user = makeUser(rs);			
+			users.add(user);	
 		}
 			return users;
 	}

@@ -6,10 +6,10 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ua.training.electriberies.model.dao.implementations.MySQLDAOFactory;
-import ua.training.electriberies.model.dao.interfaces.DAOFactory;
-import ua.training.electriberies.model.dao.interfaces.DeviceDAO;
-import ua.training.electriberies.model.dao.interfaces.UserDAO;
+import ua.training.electriberies.model.dao.common_interfaces.DAOFactory;
+import ua.training.electriberies.model.dao.common_interfaces.DeviceDAO;
+import ua.training.electriberies.model.dao.common_interfaces.UserDAO;
+import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
 import ua.training.electriberies.model.entity.devices.Device;
 import ua.training.electriberies.model.entity.users.User;
 

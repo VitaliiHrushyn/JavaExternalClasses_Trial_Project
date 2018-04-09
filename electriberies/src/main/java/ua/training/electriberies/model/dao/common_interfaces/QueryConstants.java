@@ -1,4 +1,4 @@
-package ua.training.electriberies.model.dao;
+package ua.training.electriberies.model.dao.common_interfaces;
 
 public interface QueryConstants {
 	

@@ -1,4 +1,4 @@
-package ua.training.electriberies.model.dao.interfaces;
+package ua.training.electriberies.model.dao.common_interfaces;
 
 import java.sql.Connection;
 //import java.sql.SQLException;

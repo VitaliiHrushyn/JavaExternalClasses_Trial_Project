@@ -1,4 +1,4 @@
-package ua.training.electriberies.model.dao;
+package ua.training.electriberies.model.dao.mysql;
 
 public interface MySQLConnectionConstants {
 	

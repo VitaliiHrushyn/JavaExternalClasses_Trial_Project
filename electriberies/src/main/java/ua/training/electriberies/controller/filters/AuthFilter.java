@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ua.training.electriberies.model.dao.interfaces.DAOFactory;
 import ua.training.electriberies.model.entity.users.UserRole;
 import ua.training.electriberies.model.service.UserService;
 
@@ -32,9 +31,9 @@ public class AuthFilter implements Filter {
 		
 		final String login;
 		final String password;
-		final String regLogin;
-		final String regPassword;
-		final String regConfirmPassword;
+//		final String regLogin;
+//		final String regPassword;
+//		final String regConfirmPassword;
 		final UserRole role;
 		
 		final HttpSession session = request.getSession();
@@ -43,9 +42,9 @@ public class AuthFilter implements Filter {
 		
 		login = request.getParameter("login");
 		password = request.getParameter("password");
-		regLogin = request.getParameter("reglogin");
-		regPassword = request.getParameter("regpassword");
-		regConfirmPassword = request.getParameter("regconfirmpassword");
+//		regLogin = request.getParameter("reglogin");
+//		regPassword = request.getParameter("regpassword");
+//		regConfirmPassword = request.getParameter("regconfirmpassword");
 
 		System.out.println(session.getAttribute("role"));
 		

@@ -1,24 +1,28 @@
-package ua.training.electriberies.model.dao.implementations;
+package ua.training.electriberies.model.dao.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static ua.training.electriberies.model.dao.MySQLConnectionConstants.*;
-import ua.training.electriberies.model.dao.interfaces.*;
+import ua.training.electriberies.model.dao.common_interfaces.*;
 
-public class MySQLDAOFactory implements DAOFactory {	
+public class MySQLDAOFactory implements DAOFactory {
+	
+	private static final String DRIVER = MySQLConnectionConstants.JDBC_DRIVER_NAME;
+	private static final String URL = MySQLConnectionConstants.CONNECTION_URL;
+	private static final String USERNAME = MySQLConnectionConstants.CONNECTION_USERNAME;
+	private static final String PASSWORD = MySQLConnectionConstants.CONNECTION_PASSWORD;
 	
 	public MySQLDAOFactory() {}
 
 	public Connection getConnection() throws SQLException {
 		try {
-		    Class.forName(JDBC_DRIVER_NAME);
+		    Class.forName(DRIVER);
 		} 
 		catch (ClassNotFoundException e) {
 		    e.printStackTrace();
 		} 
-		return DriverManager.getConnection(CONNECTION_URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
+		return DriverManager.getConnection(URL, USERNAME, PASSWORD);
 	}
 	
 	@Override

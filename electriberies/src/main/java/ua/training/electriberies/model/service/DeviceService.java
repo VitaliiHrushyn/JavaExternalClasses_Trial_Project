@@ -6,9 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import ua.training.electriberies.model.dao.implementations.MySQLDAOFactory;
-import ua.training.electriberies.model.dao.interfaces.DAOFactory;
-import ua.training.electriberies.model.dao.interfaces.DeviceDAO;
+import ua.training.electriberies.model.dao.common_interfaces.DAOFactory;
+import ua.training.electriberies.model.dao.common_interfaces.DeviceDAO;
+import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
 import ua.training.electriberies.model.entity.devices.Device;
 
 public class DeviceService {

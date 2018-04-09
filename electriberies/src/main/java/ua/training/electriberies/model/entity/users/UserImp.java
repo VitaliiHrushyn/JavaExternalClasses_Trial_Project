@@ -7,7 +7,7 @@ public class UserImp implements User {
 	private String password;
 	private UserRole role;	
 	
-	private UserImp() {
+	public UserImp() {
 		super();
 	}
 

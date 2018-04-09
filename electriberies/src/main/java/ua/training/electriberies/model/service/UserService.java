@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import ua.training.electriberies.model.dao.implementations.MySQLDAOFactory;
-import ua.training.electriberies.model.dao.interfaces.DAOFactory;
-import ua.training.electriberies.model.dao.interfaces.UserDAO;
+import ua.training.electriberies.model.dao.common_interfaces.DAOFactory;
+import ua.training.electriberies.model.dao.common_interfaces.UserDAO;
+import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
 import ua.training.electriberies.model.entity.users.User;
 
 public class UserService {
