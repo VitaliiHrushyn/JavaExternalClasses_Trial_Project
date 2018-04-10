@@ -7,10 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ua.training.electriberies.model.dao.common_interfaces.DAOFactory;
-import ua.training.electriberies.model.dao.common_interfaces.DeviceDAO;
-import ua.training.electriberies.model.dao.common_interfaces.UserDAO;
+import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
 import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
-import ua.training.electriberies.model.entity.devices.Device;
 import ua.training.electriberies.model.entity.users.User;
 
 public class TestMySQLUserDAO {
@@ -20,7 +18,7 @@ public class TestMySQLUserDAO {
 	    DAOFactory daoFactory = new MySQLDAOFactory();
 	    List<User> users;
 	    try (Connection connection = daoFactory.getConnection()) {
-	        UserDAO userDAO = daoFactory.getUserDAO(connection);
+	    	GenericDAO<User> userDAO = daoFactory.getUserDAO(connection);
 	        users = userDAO.getAll();
 	    }	    
 	    Assert.assertNotNull(users);
@@ -34,7 +32,7 @@ public class TestMySQLUserDAO {
 	    DAOFactory daoFactory = new MySQLDAOFactory();
 	    User user;
 	    try (Connection connection = daoFactory.getConnection()) {
-	        UserDAO userDAO = daoFactory.getUserDAO(connection);
+	    	GenericDAO<User> userDAO = daoFactory.getUserDAO(connection);
 	        user = userDAO.getById(1);
 	    }	    
 	    Assert.assertNotNull(user);

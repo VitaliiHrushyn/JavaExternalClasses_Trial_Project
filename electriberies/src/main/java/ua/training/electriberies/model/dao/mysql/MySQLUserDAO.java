@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ua.training.electriberies.model.dao.common_interfaces.QueryConstants;
-import ua.training.electriberies.model.dao.common_interfaces.UserDAO;
+import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
 import ua.training.electriberies.model.entity.users.User;
 import ua.training.electriberies.model.entity.users.UserImp;
 import ua.training.electriberies.model.entity.users.UserRole;
 
-public class MySQLUserDAO implements UserDAO {
+public class MySQLUserDAO implements GenericDAO<User> {
 	
-	private static final String GET_BY_ID = QueryConstants.GET_USER_BY_ID;
+	private static final String GET_BY_ID = QueryConstants.GET_USER_BY_ID_QUERY;
 	private static final String GET_ALL = QueryConstants.GET_ALL_USERS_QUERY;
+	private static final String INSERT_USER = QueryConstants.INSERT_USER_QUERY;
 
 	private static final String ID = QueryConstants.USER_ID_COLUMN;
 	private static final String LOGIN = QueryConstants.USER_LOGIN_COLUMN;

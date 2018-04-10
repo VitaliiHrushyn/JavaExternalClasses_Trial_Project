@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import ua.training.electriberies.model.dao.common_interfaces.DeviceDAO;
+import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
 import ua.training.electriberies.model.dao.common_interfaces.QueryConstants;
 import ua.training.electriberies.model.entity.devices.*;
 
-public class MySQLDeviceDAO implements DeviceDAO {
+public class MySQLDeviceDAO implements GenericDAO<Device> {
 	
 	private static final String GET_BY_ID = QueryConstants.GET_DEVICE_BY_ID_QUERY;
 	private static final String GET_ALL = QueryConstants.GET_ALL_DEVICES_QUERY;

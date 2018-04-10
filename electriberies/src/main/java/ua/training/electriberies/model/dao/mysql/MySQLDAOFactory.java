@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import ua.training.electriberies.model.dao.common_interfaces.*;
+import ua.training.electriberies.model.entity.devices.Device;
+import ua.training.electriberies.model.entity.users.User;
 
 public class MySQLDAOFactory implements DAOFactory {
 	
@@ -26,12 +28,12 @@ public class MySQLDAOFactory implements DAOFactory {
 	}
 	
 	@Override
-	public DeviceDAO getDeviceDAO(Connection connection) {
+	public GenericDAO<Device> getDeviceDAO(Connection connection) {
 		return new MySQLDeviceDAO(connection);
 	}
 
 	@Override
-	public UserDAO getUserDAO(Connection connection) {
+	public GenericDAO<User> getUserDAO(Connection connection) {
 		return new MySQLUserDAO(connection);
 	}	
 

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ua.training.electriberies.model.dao.common_interfaces.DAOFactory;
-import ua.training.electriberies.model.dao.common_interfaces.UserDAO;
+import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
 import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
 import ua.training.electriberies.model.entity.users.User;
 
@@ -17,7 +17,7 @@ public class UserService {
 	public static List<User> getAllUsers() {
 		List<User> users = null;
 	    try (Connection connection = daoFactory.getConnection()) {
-	        UserDAO userDAO = daoFactory.getUserDAO(connection);
+	        GenericDAO<User> userDAO = daoFactory.getUserDAO(connection);
 	        users = userDAO.getAll();
 	    } catch (SQLException e) {
 			e.printStackTrace();
