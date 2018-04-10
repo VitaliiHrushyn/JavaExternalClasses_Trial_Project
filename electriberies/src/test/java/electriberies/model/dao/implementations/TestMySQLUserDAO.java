@@ -11,6 +11,7 @@ import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
 import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
 import ua.training.electriberies.model.entity.users.User;
 import ua.training.electriberies.model.entity.users.UserImp;
+import ua.training.electriberies.model.entity.users.UserRole;
 
 public class TestMySQLUserDAO {
 	
@@ -44,7 +45,7 @@ public class TestMySQLUserDAO {
 	@Test
 	public void testCreate() throws Exception {
 	    DAOFactory daoFactory = new MySQLDAOFactory();
-	    User user = new UserImp("testLogin", "testPassword", "USER");
+	    User user = new UserImp("testLogin", "testPassword", UserRole.valueOf("USER"));
 	    boolean result = false;
 	    try (Connection connection = daoFactory.getConnection()) {
 	    	GenericDAO<User> userDAO = daoFactory.getUserDAO(connection);

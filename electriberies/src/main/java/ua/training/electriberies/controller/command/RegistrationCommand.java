@@ -27,35 +27,37 @@ public class RegistrationCommand implements Command {
 		regPassword = request.getParameter("regpassword");
 		regConfirmPassword = request.getParameter("regconfirmpassword");
 		
-		session.setAttribute("message", "registration isn't working yet");
 		
-		String path = "redirect:/registration.jsp";
+		String path = "/app/logout";
 	
-		if (checkUniqueLogin()) {
-			doRegistration();
+		if (validateLoginAndPassword()) {
+			doRegistration(path);
 		} else {
-			interruptRegisteration();
+			interruptRegisteration(path);
 		}	
-		
+		System.out.println("registr path= " + path);
 		return path;
 	}
 	
 	
 
-	private boolean checkUniqueLogin() {
-		if (UserService.getUserByLogin(regLogin) == null) {
+	private boolean validateLoginAndPassword() {
+		if (UserService.getUserByLogin(regLogin) == null && regPassword.equals(regConfirmPassword)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	private void doRegistration() {
-		
+	private void doRegistration(String path) {
+		UserService.createUser(regLogin, regPassword, UserRole.USER);
+	//	session.setAttribute("role", UserRole.USER);
+	//	session.setAttribute("login", regLogin);
+	//	path = "/view/profile.jsp";
 		
 	}
 	
-	private void interruptRegisteration() {
+	private void interruptRegisteration(String path) {
 		request.setAttribute("message", "Something went wrong via registration, try again");		
 	}
 

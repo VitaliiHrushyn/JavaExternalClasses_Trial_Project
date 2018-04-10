@@ -31,9 +31,9 @@ public class AuthFilter implements Filter {
 		
 		final String login;
 		final String password;
-//		final String regLogin;
-//		final String regPassword;
-//		final String regConfirmPassword;
+		final String regLogin;
+		final String regPassword;
+		final String regConfirmPassword;
 		final UserRole role;
 		
 		final HttpSession session = request.getSession();
@@ -42,9 +42,8 @@ public class AuthFilter implements Filter {
 		
 		login = request.getParameter("login");
 		password = request.getParameter("password");
-//		regLogin = request.getParameter("reglogin");
-//		regPassword = request.getParameter("regpassword");
-//		regConfirmPassword = request.getParameter("regconfirmpassword");
+		regLogin = request.getParameter("reglogin");
+		regPassword = request.getParameter("regpassword");
 
 		System.out.println(session.getAttribute("role"));
 		
@@ -58,10 +57,10 @@ public class AuthFilter implements Filter {
 			
 //			System.out.println("else");
 					
-//			if (regLogin != null && regPassword != null && regPassword.equals(regConfirmPassword)) {
-//				session.setAttribute("role", UserRole.REGISTRANT);
-//				System.out.println("registrant filter");
-//				}
+			if (regLogin != null && regPassword != null) {
+				session.setAttribute("role", UserRole.REGISTRANT);
+				System.out.println("registrant filter");
+				}
 			if (login != null && password != null && UserService.isUserExists(login, password)) {
 				session.setAttribute("role", UserService.getUserByLogin(login).getRole());
 				session.setAttribute("login", login);
@@ -84,7 +83,7 @@ public class AuthFilter implements Filter {
 				path = "/app/login";
 			}
 			if (role.equals(UserRole.REGISTRANT)) {
-				path = "/app/login";
+				path = "/app/registration";
 			} 
 		}
 		request.getRequestDispatcher(path).forward(request, response);	

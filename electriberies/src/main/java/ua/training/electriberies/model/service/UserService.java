@@ -8,6 +8,8 @@ import ua.training.electriberies.model.dao.common_interfaces.DAOFactory;
 import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
 import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
 import ua.training.electriberies.model.entity.users.User;
+import ua.training.electriberies.model.entity.users.UserImp;
+import ua.training.electriberies.model.entity.users.UserRole;
 
 public class UserService {
 	
@@ -20,7 +22,7 @@ public class UserService {
 	        GenericDAO<User> userDAO = daoFactory.getUserDAO(connection);
 	        users = userDAO.getAll();
 	    } catch (SQLException e) {
-			e.printStackTrace();
+	    	throw new RuntimeException(e);
 		}		
 		return users; 
 	}
@@ -41,6 +43,17 @@ public class UserService {
 		} else {
 			return	user.getPassword().equals(password);
 		}		
+	}
+	
+	public static void createUser(String login, String password, UserRole role) {
+		User user = new UserImp(login, password, role);
+		
+		try (Connection connection = daoFactory.getConnection()) {
+	        GenericDAO<User> userDAO = daoFactory.getUserDAO(connection);
+	        userDAO.insert(user);
+	    } catch (SQLException e) {
+			throw new RuntimeException(e);
+		}	
 	}
 	
 }
