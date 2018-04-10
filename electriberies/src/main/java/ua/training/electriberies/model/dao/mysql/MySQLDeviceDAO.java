@@ -38,18 +38,20 @@ public class MySQLDeviceDAO implements DeviceDAO {
 	}
 
 	@Override
-	public Device getById(int id) throws SQLException, InstantiationException, 
-								IllegalAccessException, ClassNotFoundException {
-		PreparedStatement statement = connection.prepareStatement(GET_BY_ID);
-		statement.setInt(1, id);
-		ResultSet rs = statement.executeQuery();
-		if (rs.next()) {
-			Device device = makeDevice(rs);			
-			return device;			
-		} else {
-			return null;
-		}
+	public Device getById(int id) {
+		Device device = null;
 		
+		try(PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
+			statement.setInt(1, id);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				device = makeDevice(rs);
+			}
+		} catch (SQLException|InstantiationException | 
+					IllegalAccessException | ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}			
+			return device;			
 	}
 
 	private Device makeDevice(ResultSet rs)
@@ -77,14 +79,15 @@ public class MySQLDeviceDAO implements DeviceDAO {
 	}
 
 	@Override
-	public List<Device> getAll() throws SQLException, ClassNotFoundException, 
-								InstantiationException, IllegalAccessException {
+	public List<Device> getAll() {
 		List<Device> devices = new LinkedList<>();
-		PreparedStatement statement = connection.prepareStatement(GET_ALL);
-		ResultSet rs = statement.executeQuery();
-		while(rs.next()) {
-			Device device = makeDevice(rs);			
-			devices.add(device);
+		try(PreparedStatement statement = connection.prepareStatement(GET_ALL)) {
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				devices.add(makeDevice(rs));
+			}
+		} catch (SQLException |InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			throw new RuntimeException(e);
 		}
 		return devices;
 	}

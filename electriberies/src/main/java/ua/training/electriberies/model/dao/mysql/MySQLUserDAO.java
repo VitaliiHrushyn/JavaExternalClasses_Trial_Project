@@ -36,13 +36,19 @@ public class MySQLUserDAO implements UserDAO {
 	}
 
 	@Override
-	public User getById(int id) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(GET_BY_ID);
-		statement.setInt(1, id);
-		ResultSet rs = statement.executeQuery();
-	//	User user = null;
-		rs.next();
-		User user = makeUser(rs);		
+	public User getById(int id) {
+		User user = null;
+		
+		try(PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
+			statement.setInt(1, id);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				user = makeUser(rs);	
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
 		return user;
 	}
 
@@ -68,15 +74,20 @@ public class MySQLUserDAO implements UserDAO {
 	}
 
 	@Override
-	public List<User> getAll() throws SQLException {
-		PreparedStatement statement = connection.prepareStatement(GET_ALL);
+	public List<User> getAll() {
 		List<User> users = new ArrayList<>();
-		ResultSet rs = statement.executeQuery();
-		while(rs.next()) {
-			User user = makeUser(rs);			
-			users.add(user);	
-		}
-			return users;
+		
+		try(PreparedStatement statement = connection.prepareStatement(GET_ALL)) {
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				User user = makeUser(rs);			
+				users.add(user);	
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}		
+		
+		return users;
 	}
 
 }
