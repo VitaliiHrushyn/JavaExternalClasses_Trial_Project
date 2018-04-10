@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface GenericDAO<T> {
 	
-	T create() throws SQLException;
+//	T create() throws SQLException;
 	
 	T getById(int id);
 	
@@ -14,5 +14,7 @@ public interface GenericDAO<T> {
 	void delete(T user) throws SQLException;
 	
 	List<T> getAll();
+
+	boolean insert(T entety);
 
 }

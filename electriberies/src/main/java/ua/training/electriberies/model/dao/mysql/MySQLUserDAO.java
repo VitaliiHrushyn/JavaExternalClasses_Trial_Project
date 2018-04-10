@@ -9,9 +9,7 @@ import java.util.List;
 
 import ua.training.electriberies.model.dao.common_interfaces.QueryConstants;
 import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
-import ua.training.electriberies.model.entity.users.User;
-import ua.training.electriberies.model.entity.users.UserImp;
-import ua.training.electriberies.model.entity.users.UserRole;
+import ua.training.electriberies.model.entity.users.*;
 
 public class MySQLUserDAO implements GenericDAO<User> {
 	
@@ -31,9 +29,19 @@ public class MySQLUserDAO implements GenericDAO<User> {
 	}
 
 	@Override
-	public User create() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean insert(User user) {
+		int result = 0;
+		try(PreparedStatement statement = connection.prepareStatement(INSERT_USER)) {
+			statement.setString(1, user.getLogin());
+			statement.setString(2, user.getPassword());
+			statement.setString(3, user.getRole().name());
+			
+			result = statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return result > 0 ? true : false;
 	}
 
 	@Override

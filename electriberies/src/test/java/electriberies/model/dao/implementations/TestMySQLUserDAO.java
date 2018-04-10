@@ -10,6 +10,7 @@ import ua.training.electriberies.model.dao.common_interfaces.DAOFactory;
 import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
 import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
 import ua.training.electriberies.model.entity.users.User;
+import ua.training.electriberies.model.entity.users.UserImp;
 
 public class TestMySQLUserDAO {
 	
@@ -36,6 +37,20 @@ public class TestMySQLUserDAO {
 	        user = userDAO.getById(1);
 	    }	    
 	    Assert.assertNotNull(user);
+	    
+//	    System.out.println("testGetById: " + user);
+	}
+	
+	@Test
+	public void testCreate() throws Exception {
+	    DAOFactory daoFactory = new MySQLDAOFactory();
+	    User user = new UserImp("testLogin", "testPassword", "USER");
+	    boolean result = false;
+	    try (Connection connection = daoFactory.getConnection()) {
+	    	GenericDAO<User> userDAO = daoFactory.getUserDAO(connection);
+	        result = userDAO.insert(user);
+	    }	    
+	    Assert.assertTrue(result);
 	    
 //	    System.out.println("testGetById: " + user);
 	}

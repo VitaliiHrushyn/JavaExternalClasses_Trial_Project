@@ -19,6 +19,13 @@ public class UserImp implements User {
 		this.role = role;
 	}
 	
+	public UserImp(String login, String password, String role) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.role = UserRole.valueOf(role);
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}

@@ -32,9 +32,9 @@ public class MySQLDeviceDAO implements GenericDAO<Device> {
 	}
 
 	@Override
-	public Device create() {
+	public boolean insert(Device device) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override
