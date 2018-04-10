@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ua.training.electriberies.model.entity.users.User;
 import ua.training.electriberies.model.entity.users.UserRole;
 import ua.training.electriberies.model.service.UserService;
 
@@ -34,7 +35,7 @@ public class AuthFilter implements Filter {
 		final String regLogin;
 		final String regPassword;
 		final String regConfirmPassword;
-		final UserRole role;
+		final User user;
 		
 		final HttpSession session = request.getSession();
 		
@@ -45,29 +46,25 @@ public class AuthFilter implements Filter {
 		regLogin = request.getParameter("reglogin");
 		regPassword = request.getParameter("regpassword");
 
-		System.out.println(session.getAttribute("role"));
+	//	System.out.println(session.getAttribute("role"));
 		
-		role = (UserRole) session.getAttribute("role");
+		user = (User) session.getAttribute("user");
 		
 //		System.out.println(role);
 		
-		if (role != null) {
-			chain.doFilter(request, response);
-		} else {
+		if (user != null) {
 			
-//			System.out.println("else");
-					
-			if (regLogin != null && regPassword != null) {
-				session.setAttribute("role", UserRole.REGISTRANT);
-				System.out.println("registrant filter");
-				}
-			if (login != null && password != null && UserService.isUserExists(login, password)) {
-				session.setAttribute("role", UserService.getUserByLogin(login).getRole());
-				session.setAttribute("login", login);
-				session.setAttribute("message", "you've succesfuly entered to profile");
-			}
-			moveToProfile((UserRole) session.getAttribute("role"), request, response);
+		} 
+		else if (regLogin != null && regPassword != null) {					
+			User newUser = UserService.makeUser(regLogin, regPassword, regConfirmPassword);
+			session.setAttribute("user", newUser);
+		} 
+		else if (login != null && password != null) { 
+			User existingUser = UserService.getUserIfExists(login, password)
+			session.setAttribute("user", existingUser);
 		}
+			chain.doFilter(request, response);;
+		
 		
 	}
 
