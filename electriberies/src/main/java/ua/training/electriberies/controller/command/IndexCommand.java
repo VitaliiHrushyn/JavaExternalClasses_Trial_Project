@@ -7,7 +7,7 @@ public class IndexCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		return "redirect:/index.jsp";
+		return "/app/logout";
 	}
 
 }
