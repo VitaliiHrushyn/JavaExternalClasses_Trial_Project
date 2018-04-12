@@ -2,6 +2,7 @@ package ua.training.electriberies.controller.command;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ua.training.electriberies.model.NotUniqueLoginException;
 import ua.training.electriberies.model.entity.users.UserRole;
 import ua.training.electriberies.model.service.UserService;
 
@@ -17,35 +18,30 @@ public class RegistrationCommand implements Command {
 		regLogin = request.getParameter("reglogin");
 		regPassword = request.getParameter("regpassword");
 		regConfirmPassword = request.getParameter("regconfirmpassword");
-		
-		
-		String path = "/app/logout";
-	
-		if (validateLoginAndPassword()) {
-			doRegistration(path);
-		} else {
-			interruptRegisteration(path);
-		}	
-		
-		return path;
-	}	
-	
+			
+		try {
+			if (validateLoginAndPassword()) {
+				doRegistration();
+			}
+		} catch (NotUniqueLoginException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e);
+		} 
+		return "/app/logout";
+	}		
 
-	private boolean validateLoginAndPassword() {
-		if (UserService.getUserByLogin(regLogin) == null && regPassword.equals(regConfirmPassword)) {
-			return true;
-		} else {
-			return false;
+	private boolean validateLoginAndPassword() throws NotUniqueLoginException {
+		if (UserService.getUserByLogin(regLogin) != null) {
+			throw new NotUniqueLoginException(regLogin + " : such user already exists.");
 		}
+		if (regPassword.equals(regConfirmPassword)) {
+			return true;
+		}
+			return false;
 	}
 
-	private void doRegistration(String path) {
+	private void doRegistration() {
 		UserService.createUser(regLogin, regPassword, UserRole.USER);
-		
-	}
-	
-	private void interruptRegisteration(String path) {
-		// TODO	
-	}
+	}	
 
 }

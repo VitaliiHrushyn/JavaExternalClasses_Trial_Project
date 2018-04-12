@@ -12,16 +12,21 @@ public class FindDevicesCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, NumberFormatException {
-		int powerFrom = Integer.valueOf(request.getParameter("powerFrom"));
-		int powerTo = Integer.valueOf(request.getParameter("powerTo"));
-		int voltageFrom = (request.getParameter("220") == null) ? 380 : 220;
-		int voltageTo = (request.getParameter("380") == null) ? 220 : 380;
-		List<Device> filteredDevices = 
-				DeviceService.findDevises(powerFrom, powerTo, voltageFrom, voltageTo);
-		request.setAttribute("findeddevices", filteredDevices);
-		request.setAttribute("totalPower", DeviceService.showTotalPower(filteredDevices));
-		request.setAttribute("currentPower", DeviceService.showCurrentPower(filteredDevices));
-		return "/view/finddevice.jsp";
+		Integer powerFrom = Integer.valueOf(request.getParameter("powerFrom"));
+		Integer powerTo = Integer.valueOf(request.getParameter("powerTo"));
+		Integer voltageFrom = (request.getParameter("220") == null) ? 380 : 220;
+		Integer voltageTo = (request.getParameter("380") == null) ? 220 : 380;
+		List<Device> devices;
+		
+		if (powerFrom == null) {
+			devices = DeviceService.getAllDevises();
+		} else {		
+			devices = DeviceService.findDevises(powerFrom, powerTo, voltageFrom, voltageTo);
+		}
+		request.setAttribute("devices", devices);
+		request.setAttribute("totalPower", DeviceService.showTotalPower(devices));
+		request.setAttribute("currentPower", DeviceService.showCurrentPower(devices));
+		return "/view/showdevices.jsp";
 	}
 
 }

@@ -17,7 +17,7 @@
 			<a href="${pageContext.request.contextPath}/app/showdevices">Show all devices</a>
 			<br>
 			<br>
-			<form method ="get" action="${pageContext.request.contextPath}/app/finddevice">
+			<form method ="post" action="${pageContext.request.contextPath}/app/finddevice">
 			  <fieldset>
 			    <legend>Search for device</legend>
 			    Power:<br>
@@ -27,7 +27,7 @@
 			    <input type="number" name="powerTo" value="3000"><br>
 			    Voltage:<br>
 			    <input type="checkbox" name="220" value="220" checked> 220 V 
-  				<input type="checkbox" name="380" value="380"> 380 V<br><br>
+  				<input type="checkbox" name="380" value="380" checked> 380 V<br><br>
 			    <input type="submit" value="Search">
 			  </fieldset>
 			</form>

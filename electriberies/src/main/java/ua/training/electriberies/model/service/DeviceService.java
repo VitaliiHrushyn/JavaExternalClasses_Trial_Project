@@ -39,7 +39,7 @@ public class DeviceService {
 		return devices; 
 	}
 	
-	static public List<Device> showAllDevises() {
+	static public List<Device> getAllDevises() {
 		List<Device> devices = getAllDevices();
 		devices.sort(new DeviceComparator());
 		return devices;

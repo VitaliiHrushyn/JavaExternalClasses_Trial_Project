@@ -15,7 +15,7 @@
 			<h3>Menu</h3>
 			<a href="${pageContext.request.contextPath}/app/logout">Logout</a>
 			<br>
-			<a href="${pageContext.request.contextPath}/app/showdevices">Show devices</a>
+			<a href="${pageContext.request.contextPath}/app/showdevices">Devices</a>
 		</menu>
 	</body>
 </html>

@@ -14,7 +14,7 @@ public class TestDeviceUtil {
 	public void testShowAllDevices() {
 	
 		List<Device> devices = null;
-		devices = DeviceService.showAllDevises();
+		devices = DeviceService.getAllDevises();
 	    	    
 	    Assert.assertNotNull(devices);
 	    Assert.assertTrue(devices.size() > 0);

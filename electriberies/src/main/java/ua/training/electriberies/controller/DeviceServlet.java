@@ -33,7 +33,7 @@ public class DeviceServlet extends HttpServlet {
 		commands.put("registration", new RegistrationCommand());
 		commands.put("finddevice", new FindDevicesCommand());
 		commands.put("showdevices", new ShowDeviceCommand());
-		commands.put("exception", new ExceptionCommand());
+//		commands.put("exception", new ExceptionCommand());
 	}
 
 	/**
