@@ -26,14 +26,14 @@ public class DeviceServlet extends HttpServlet {
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
-	public void init(ServletConfig config) throws ServletException {
+	public void init() {
 		commands = new HashMap<>();
-		commands.put("index", new IndexCommand());
 		commands.put("login", new LoginCommand());
 		commands.put("logout", new LogoutCommand());
 		commands.put("registration", new RegistrationCommand());
 		commands.put("finddevice", new FindDevicesCommand());
 		commands.put("showdevices", new ShowDeviceCommand());
+		commands.put("exception", new ExceptionCommand());
 	}
 
 	/**

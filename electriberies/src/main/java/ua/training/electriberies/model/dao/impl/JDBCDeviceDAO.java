@@ -1,17 +1,17 @@
-package ua.training.electriberies.model.dao.mysql;
+package ua.training.electriberies.model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
-import ua.training.electriberies.model.dao.common_interfaces.QueryConstants;
+import ua.training.electriberies.model.dao.interfaces.GenericDAO;
+import ua.training.electriberies.model.dao.interfaces.QueryConstants;
 import ua.training.electriberies.model.entity.devices.*;
 
-public class MySQLDeviceDAO implements GenericDAO<Device> {
+public class JDBCDeviceDAO implements GenericDAO<Device> {
 	
 	private static final String GET_BY_ID = QueryConstants.GET_DEVICE_BY_ID_QUERY;
 	private static final String GET_ALL = QueryConstants.GET_ALL_DEVICES_QUERY;
@@ -27,14 +27,13 @@ public class MySQLDeviceDAO implements GenericDAO<Device> {
 	
 	private Connection connection;
 
-	public MySQLDeviceDAO(Connection connection) {
+	public JDBCDeviceDAO(Connection connection) {
 		this.connection = connection;
 	}
-
+	
 	@Override
-	public boolean insert(Device device) {
-		// TODO Auto-generated method stub
-		return false;
+	public Device create(Device entity) {
+		return null;
 	}
 
 	@Override
@@ -45,7 +44,7 @@ public class MySQLDeviceDAO implements GenericDAO<Device> {
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				device = makeDevice(rs);
+				device = extractDevice(rs);
 			}
 		} catch (SQLException|InstantiationException | 
 					IllegalAccessException | ClassNotFoundException e) {
@@ -54,7 +53,7 @@ public class MySQLDeviceDAO implements GenericDAO<Device> {
 			return device;			
 	}
 
-	private Device makeDevice(ResultSet rs)
+	private Device extractDevice(ResultSet rs)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		Device device = (Device) Class.forName(rs.getString(CLASS_NAME)).newInstance();
 		device.setId(rs.getInt(ID));
@@ -65,31 +64,40 @@ public class MySQLDeviceDAO implements GenericDAO<Device> {
 		device.setLocation(rs.getString(LOCATION));
 		return device;
 	}
-
-	@Override
-	public void update(Device device) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Device device) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public List<Device> getAll() {
-		List<Device> devices = new LinkedList<>();
+		List<Device> devices = new ArrayList<>();
 		try(PreparedStatement statement = connection.prepareStatement(GET_ALL)) {
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-				devices.add(makeDevice(rs));
+				devices.add(extractDevice(rs));
 			}
 		} catch (SQLException |InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 		return devices;
+	}
+
+	@Override
+	public Device update(Device device) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Device delete(Device device) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+	
+	@Override
+	public void close() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}		
 	}
 	
 }

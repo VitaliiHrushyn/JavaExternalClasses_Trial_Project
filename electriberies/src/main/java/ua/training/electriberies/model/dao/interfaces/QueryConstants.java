@@ -1,4 +1,4 @@
-package ua.training.electriberies.model.dao.common_interfaces;
+package ua.training.electriberies.model.dao.interfaces;
 
 public interface QueryConstants {
 	
@@ -15,13 +15,18 @@ public interface QueryConstants {
 	
 	
 	String GET_USER_BY_ID_QUERY = "SELECT * FROM users WHERE userid = ?;";
+	String GET_USER_BY_LOGIN_QUERY = "SELECT * FROM users WHERE login = ?;";
 	String GET_ALL_USERS_QUERY = "SELECT * FROM users;";
 	String INSERT_USER_QUERY ="INSERT INTO users (login, password, role) values (?, ?, ?)";
+	String DELETE_USER_QUERY = "DELETE FROM users WHERE userid = ?";
+	String UPDATE_USER_QUERY = "UPDATE users SET login = ?, password = ?, role = ?  WHERE userid = ?;";
 	
 	String USER_ID_COLUMN = "userid";
 	String USER_LOGIN_COLUMN = "login";
 	String USER_PASSWORD_COLUMN = "password";
 	String USER_ROLE_COLUMN = "role";
+	
+	
 	
 
 }

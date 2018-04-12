@@ -41,5 +41,7 @@
 				</form>
 			</p>
 	  	</center>
+	  	
+        <a href="${pageContext.request.contextPath}/app/exception">Exception</a>
 	</body>
 </html> 

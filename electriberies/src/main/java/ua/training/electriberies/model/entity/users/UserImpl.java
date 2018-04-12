@@ -1,17 +1,17 @@
 package ua.training.electriberies.model.entity.users;
 
-public class UserImp implements User {
+public class UserImpl implements User {
 	
 	private int id;
 	private String login;
 	private String password;
 	private UserRole role;	
 	
-	public UserImp() {
+	public UserImpl() {
 		super();
 	}
 
-	public UserImp(int id, String login, String password, UserRole role) {
+	public UserImpl(int id, String login, String password, UserRole role) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -19,7 +19,7 @@ public class UserImp implements User {
 		this.role = role;
 	}
 	
-	public UserImp(String login, String password, UserRole role) {
+	public UserImpl(String login, String password, UserRole role) {
 		super();
 		this.login = login;
 		this.password = password;

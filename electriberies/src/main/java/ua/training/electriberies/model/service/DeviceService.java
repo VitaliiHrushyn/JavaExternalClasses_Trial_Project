@@ -1,25 +1,21 @@
 package ua.training.electriberies.model.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import ua.training.electriberies.model.dao.common_interfaces.DAOFactory;
-import ua.training.electriberies.model.dao.common_interfaces.GenericDAO;
-import ua.training.electriberies.model.dao.mysql.MySQLDAOFactory;
+import ua.training.electriberies.model.dao.DAOFactory;
+import ua.training.electriberies.model.dao.interfaces.GenericDAO;
 import ua.training.electriberies.model.entity.devices.Device;
 
 public class DeviceService {
 	
-	private static DAOFactory daoFactory = new MySQLDAOFactory();
-		
+	private static DAOFactory daoFactory = DAOFactory.getInstance();		
 	
 	/**
 	 * Firstly sorts devices which are switched ON after that which are switched OFF
 	 */
-	private static class electroComparator implements Comparator<Device> {
+	private static class DeviceComparator implements Comparator<Device> {
 		@Override
 		public int compare(Device o1, Device o2) {
 			if (o1.isSwitched() && !o2.isSwitched()) {
@@ -32,30 +28,31 @@ public class DeviceService {
 			}
 		}			
 	}
-	private static List<Device> getAllDevices() throws SQLException, 
-				ClassNotFoundException, InstantiationException, IllegalAccessException {
+	
+	private static List<Device> getAllDevices() {
 		List<Device> devices;
-	    try (Connection connection = daoFactory.getConnection()) {
-	        GenericDAO<Device> deviceDAO = daoFactory.getDeviceDAO(connection);
+	    try (GenericDAO<Device> deviceDAO = daoFactory.createDeviceDAO()) {
 	        devices = deviceDAO.getAll();
-	    }		
+	    } catch (Exception e) {
+			throw new RuntimeException(e);
+		} 	
 		return devices; 
 	}
 	
-	static public List<Device> showAllDevises() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	static public List<Device> showAllDevises() {
 		List<Device> devices = getAllDevices();
-		devices.sort(new electroComparator());
+		devices.sort(new DeviceComparator());
 		return devices;
 	}
 	
-	static public List<Device> findDevises(int powerFrom, int powerTo, int voltageFrom, int voltageTo) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+	static public List<Device> findDevises(int powerFrom, int powerTo, int voltageFrom, int voltageTo) {
 		List<Device> filteredDevices = new CopyOnWriteArrayList<>();
 		for (Device device : getAllDevices()) {
 			if (device.match(powerFrom, powerTo, voltageFrom, voltageTo)) {
 				filteredDevices.add(device);
 			}
 		}
-		filteredDevices.sort(new electroComparator());
+		filteredDevices.sort(new DeviceComparator());
 		return filteredDevices;
 	}
 	

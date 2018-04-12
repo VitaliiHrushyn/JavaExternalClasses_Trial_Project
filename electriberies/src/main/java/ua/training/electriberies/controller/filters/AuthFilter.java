@@ -33,7 +33,6 @@ public class AuthFilter implements Filter {
 		final String password;
 		final String regLogin;
 		final String regPassword;
-		final String regConfirmPassword;
 		final UserRole role;
 		
 		final HttpSession session = request.getSession();
