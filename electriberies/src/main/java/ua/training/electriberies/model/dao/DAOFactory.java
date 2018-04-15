@@ -13,7 +13,8 @@ public abstract class DAOFactory {
 		if (daoFactory == null) {
 			synchronized (DAOFactory.class) {
 				if (daoFactory == null) {
-					daoFactory = new JDBCDAOFactory();
+					DAOFactory temp = new JDBCDAOFactory();
+					daoFactory = temp;
 				}				
 			}
 		}
