@@ -58,7 +58,8 @@ public class DeviceServlet extends HttpServlet {
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 		String[] URIArr = request.getRequestURI().split("/");
 		String commandName = URIArr[URIArr.length - 1];
-		String path = commands.getOrDefault(commandName, (r)->commands.get("index").execute(request)).execute(request);
+		String path = commands.getOrDefault
+				(commandName, (r)->commands.get("index").execute(request)).execute(request);
 		
 		if (path.contains("redirect:")) {
 			response.sendRedirect("/electriberies" + path.replace("redirect:", ""));

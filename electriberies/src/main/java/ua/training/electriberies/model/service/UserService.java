@@ -32,6 +32,9 @@ public class UserService {
 	}
 
 	public static boolean isUserExists(String login, String password) {
+		if (login == null || login == "" || password == null) {
+			return false;
+		}
 		User user = getUserByLogin(login);
 		if (user == null) {
 			return false;

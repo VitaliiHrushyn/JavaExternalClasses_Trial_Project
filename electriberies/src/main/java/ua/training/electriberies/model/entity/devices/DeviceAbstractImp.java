@@ -79,8 +79,9 @@ public abstract class DeviceAbstractImp implements Device {
 	}
 	
 	private boolean matchVoltage(int... voltages) {
-		for (int i : voltages) {
-			if (this.voltage == i) {
+		if (voltages == null) return false;
+		for (int v : voltages) {
+			if (this.voltage == v) {
 				return true;
 			}
 		}

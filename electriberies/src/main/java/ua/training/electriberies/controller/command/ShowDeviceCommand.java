@@ -13,6 +13,7 @@ public class ShowDeviceCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 		List<Device> devices = DeviceService.getAllDevises();
+		request.setAttribute("login", request.getSession().getAttribute("login"));
 		request.setAttribute("devices", devices);
 		request.setAttribute("totalPower", DeviceService.showTotalPower(devices));
 		request.setAttribute("currentPower", DeviceService.showCurrentPower(devices));

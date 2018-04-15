@@ -45,10 +45,10 @@ public class DeviceService {
 		return devices;
 	}
 	
-	static public List<Device> findDevises(int powerFrom, int powerTo, int voltageFrom, int voltageTo) {
+	static public List<Device> findDevises(int powerFrom, int powerTo, int... voltages) {
 		List<Device> filteredDevices = new CopyOnWriteArrayList<>();
 		for (Device device : getAllDevices()) {
-			if (device.match(powerFrom, powerTo, voltageFrom, voltageTo)) {
+			if (device.match(powerFrom, powerTo, voltages)) {
 				filteredDevices.add(device);
 			}
 		}

@@ -1,5 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -52,13 +50,17 @@
   </style>
  </head>
  <body>
-  <div id="header"><h1>Login page</h1></div>
+  <div id="header"><h1>H1 Title</h1></div>
   <div id="sidebar">
-  	<h2>MENU</h2>
-    <p><a href="registration.jsp">Registration page</a></p>
+    <p><a href="b_all.html">Все байки</a></p>
+    <p><a href="b_author.html">Байки по автору</a></p>
+    <p><a href="b_theme.html">Байки по теме</a></p>
+    <p><a href="b_popular.html">Популярные байки</a></p>
+    <p><a href="b_last.html">Последние байки</a></p>
   </div>
   <div id="content">
     <center>
+			<h2>Hello, guest!</h2>
 			<h3>Please, login</h3>
 			<br>
 			<div id="form">
@@ -73,10 +75,14 @@
 				  </fieldset>
 				</form>
 			</div>
-			<div>
-				<c:set var="message" value="${requestScope.message}"/>
-				<h4>message: ${message}</h4>
-			</div>
+			<br>
+			<p><c:out value="${requestScope.message}"/></p>
+			<br>
+			<p> <h3>or</h3>			
+				<form method="post" action="${pageContext.request.contextPath}/registration.jsp">
+    			<button type="submit">Register</button>
+				</form>
+			</p>
 	  	</center>
   </div>
   <div id="footer">&copy; Vitalii Hrushyn</div>

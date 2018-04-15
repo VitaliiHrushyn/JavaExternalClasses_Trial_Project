@@ -1,23 +1,23 @@
-<!--  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Search results page</title>
+		<title>Devices page</title>
 	</head>
 	
 	<body>
-		<h1>Search results</h1>
+		<h1>Devices</h1>
 		<menu>
 			<h3>Menu</h3>
+			<a href="${pageContext.request.contextPath}/app/logout">Logout</a>
+			<br>
 			<a href="${pageContext.request.contextPath}/app/login">My profile</a>
 			<br>
-			<a href="${pageContext.request.contextPath}/app/showdevices">Show all devices</a>
 			<br>
-			<br>
-			<form method ="post" action="${pageContext.request.contextPath}/app/finddevice">
+			<form method ="get" action="${pageContext.request.contextPath}/app/finddevice">
 			  <fieldset>
 			    <legend>Search for device</legend>
 			    Power:<br>
@@ -26,8 +26,8 @@
 			    to 
 			    <input type="number" name="powerTo" value="3000"><br>
 			    Voltage:<br>
-			    <input type="checkbox" name="220" value="220" checked> 220 V 
-  				<input type="checkbox" name="380" value="380" checked> 380 V<br><br>
+			    <input type="checkbox" name="220" value="checked" checked> 220 V 
+  				<input type="checkbox" name="380" value="checked" checked> 380 V<br><br>
 			    <input type="submit" value="Search">
 			  </fieldset>
 			</form>
@@ -42,7 +42,7 @@
 			<br>
 		<hr>
 		<h4>Devices: <em>(switched ON first)</em></h4>
-			<c:forEach var="device" items="${requestScope.findeddevices}">
+			<c:forEach var="device" items="${requestScope.devices}">
 				<ul>	
 					<li>Name: <c:out value="${device.name}"/> </li>
 					<li>Power: <c:out value="${device.power}"/> </li>
@@ -56,4 +56,4 @@
 				<hr>
 			</c:forEach>
 	</body>
-</html>  -->
+</html>

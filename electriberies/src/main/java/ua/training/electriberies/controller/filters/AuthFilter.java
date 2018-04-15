@@ -39,31 +39,25 @@ public class AuthFilter implements Filter {
 		
 //		session.setMaxInactiveInterval(30);
 		
-		login = request.getParameter("login");
-		password = request.getParameter("password");
-		regLogin = request.getParameter("reglogin");
-		regPassword = request.getParameter("regpassword");
-
-		System.out.println(session.getAttribute("role"));
 		
 		role = (UserRole) session.getAttribute("role");
 		
-//		System.out.println(role);
+		System.out.println("inner role " + role);
 		
 		if (role != null) {
 			chain.doFilter(request, response);
 		} else {
-			
-//			System.out.println("else");
 					
-			if (regLogin != null && regPassword != null) {
-				session.setAttribute("role", UserRole.REGISTRANT);
-				System.out.println("registrant filter");
-				}
-			if (login != null && password != null && UserService.isUserExists(login, password)) {
-				session.setAttribute("role", UserService.getUserByLogin(login).getRole());
-				session.setAttribute("login", login);
+			
+			if (UserService.isUserExists(request.getParameter("login"), request.getParameter("password"))) {
+				session.setAttribute("role", UserService.getUserByLogin(request.getParameter("login")).getRole());
+				session.setAttribute("login", request.getParameter("login"));
 				session.setAttribute("message", "you've succesfuly entered to profile");
+				System.out.println("login role " + role);
+			}
+			if (request.getParameter("regLogin") != null && request.getParameter("regPassword") != null) {
+				session.setAttribute("role", UserRole.REGISTRANT);
+				System.out.println("registr role " + role);
 			}
 			moveToProfile((UserRole) session.getAttribute("role"), request, response);
 		}

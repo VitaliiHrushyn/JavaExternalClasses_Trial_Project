@@ -1,5 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -52,32 +50,54 @@
   </style>
  </head>
  <body>
-  <div id="header"><h1>Login page</h1></div>
+  <c:set var="login" value="${requestScope.login}"/>
+  <div id="header"><h1>${login}'s profile</h1></div>
   <div id="sidebar">
   	<h2>MENU</h2>
-    <p><a href="registration.jsp">Registration page</a></p>
+  	<p><a href="${pageContext.request.contextPath}/app/logout">Logout</a></p>
+    <p><a href="${pageContext.request.contextPath}/app/login">My profile</a></p>
+    <hr>
+			<c:set var="totalPower" value="${requestScope.totalPower}"/>
+			Total power: ${totalPower}
+			<br>
+			<c:set var="totalPower" value="${requestScope.currentPower}"/>
+			Current power: ${currentPower}
+			<br>
+	<hr>
+	<form method ="get" action="${pageContext.request.contextPath}/app/finddevice">
+			  <fieldset>
+			    <legend>Search for device</legend>
+			    Power:<br>
+			    from ...<input type="number" name="powerFrom" value="0"> 
+			    <br>
+			    to  ...... <input type="number" name="powerTo" value="3000"><br>
+			    Voltage:<br>
+			    <input type="checkbox" name="220" value="checked" checked> 220 V 
+  				<input type="checkbox" name="380" value="checked" checked> 380 V<br><br>
+			    <input type="submit" value="Search">
+			  </fieldset>
+			</form>
   </div>
   <div id="content">
-    <center>
-			<h3>Please, login</h3>
-			<br>
-			<div id="form">
-				<form method ="post" action="${pageContext.request.contextPath}/app/login">
-				  <fieldset>
-				    <legend>Login form</legend>
-				    login:<br>
-				    <input type="text" name="login" value=""><br>
-				    Password:<br>
-				    <input type="password" name="password"><br><br>
-				    <input type="submit" value="Submit">
-				  </fieldset>
-				</form>
-			</div>
-			<div>
-				<c:set var="message" value="${requestScope.message}"/>
-				<h4>message: ${message}</h4>
-			</div>
-	  	</center>
+  	<h4>Devices: <em>(switched ON first)</em></h4>
+  		
+			<c:forEach var="device" items="${requestScope.devices}">
+			 <hr>
+				<ul>	
+					<li>Name: <c:out value="${device.name}"/> </li>
+					<li>Power: <c:out value="${device.power}"/> </li>
+					<li>Voltage: <c:out value="${device.voltage}"/> </li>  
+					<li>Switched: <c:if test="${device.switched == true}">ON</c:if>
+								  <c:if test="${device.switched == false}">OFF</c:if> 
+								  </li>
+					<li>Location: <c:out value="${device.location}"/> </li>
+					<li>Doing: <c:out value="${device.doWork()}"/> </li>
+				</ul>				
+			</c:forEach>
+    <div>
+		<!-- <c:set var="message" value="${requestScope.message}"/>
+		<h4>message: ${message}</h4>  -->
+	</div>		
   </div>
   <div id="footer">&copy; Vitalii Hrushyn</div>
  </body>
