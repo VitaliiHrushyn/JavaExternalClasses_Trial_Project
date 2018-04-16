@@ -17,8 +17,11 @@ public class JDBCUserDAO implements GenericDAO<User> {
 	private static final String QUERY_BUNDLE_NAME = "db_queries";
 	private static final String COLUMN_BUNDLE_NAME = "db_columns";
 	
-	private ResourceBundle queryBundle;
-	private ResourceBundle columnBundle;
+	private static ResourceBundle queryBundle;
+	private static ResourceBundle columnBundle;
+	
+	// TODO ??? put constants here: e.g. next line, make resource bundle with static initialize
+	// private static final String INSERT = queryBundle.getString(INSERT_USER_QUERY);
 	
 	private Connection connection;
 
