@@ -6,29 +6,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import ua.training.electriberies.model.dao.interfaces.GenericDAO;
-import ua.training.electriberies.model.dao.interfaces.QueryConstants;
+import static ua.training.electriberies.model.dao.interfaces.QueryConstants.*;
 import ua.training.electriberies.model.entity.devices.*;
 
 public class JDBCDeviceDAO implements GenericDAO<Device> {
+ 
+	private static final String QUERY_BUNDLE_NAME = "db_queries";
+	private static final String COLUMN_BUNDLE_NAME = "db_columns";
 	
-	private static final String GET_BY_ID = QueryConstants.GET_DEVICE_BY_ID_QUERY;
-	private static final String GET_ALL = QueryConstants.GET_ALL_DEVICES_QUERY;
-
-	private static final String CLASS_NAME = QueryConstants.DEVICE_CLASS_NAME_COLUMN;
-	private static final String ID = QueryConstants.DEVICE_ID_COLUMN;
-	private static final String NAME = QueryConstants.DEVICE_NAME_COLUMN;
-	private static final String POWER = QueryConstants.DEVICE_POWER_COLUMN;
-	private static final String VOLTAGE = QueryConstants.DEVICE_VOLTAGE_COLUMN;
-	private static final String SWITCHED = QueryConstants.DEVICE_SWITCHED_COLUMN;
-	private static final String LOCATION = QueryConstants.DEVICE_LOCATION_COLUMN;
-
+	private ResourceBundle queryBundle;
+	private ResourceBundle columnBundle;	
 	
 	private Connection connection;
+	
 
 	public JDBCDeviceDAO(Connection connection) {
 		this.connection = connection;
+		this.queryBundle = ResourceBundle.getBundle(QUERY_BUNDLE_NAME);
+		this.columnBundle = ResourceBundle.getBundle(COLUMN_BUNDLE_NAME);
+		
 	}
 	
 	@Override
@@ -40,7 +39,8 @@ public class JDBCDeviceDAO implements GenericDAO<Device> {
 	public Device getById(int id) {
 		Device device = null;
 		
-		try(PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
+		try(PreparedStatement statement = connection.prepareStatement(
+														queryBundle.getString(GET_DEVICE_BY_ID_QUERY))) {
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
@@ -55,20 +55,23 @@ public class JDBCDeviceDAO implements GenericDAO<Device> {
 
 	private Device extractDevice(ResultSet rs)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		Device device = (Device) Class.forName(rs.getString(CLASS_NAME)).newInstance();
-		device.setId(rs.getInt(ID));
-		device.setName(rs.getString(NAME));
-		device.setPower(rs.getInt(POWER));
-		device.setVoltage(rs.getInt(VOLTAGE));
-		device.setSwitched(rs.getBoolean(SWITCHED));
-		device.setLocation(rs.getString(LOCATION));
+		Device device = (Device) Class.forName(
+				rs.getString(columnBundle.getString(DEVICE_CLASS_NAME_COLUMN))
+												).newInstance();
+		device.setId(rs.getInt(columnBundle.getString(DEVICE_ID_COLUMN)));
+		device.setName(rs.getString(columnBundle.getString(DEVICE_NAME_COLUMN)));
+		device.setPower(rs.getInt(columnBundle.getString(DEVICE_POWER_COLUMN)));
+		device.setVoltage(rs.getInt(columnBundle.getString(DEVICE_VOLTAGE_COLUMN)));
+		device.setSwitched(rs.getBoolean(columnBundle.getString(DEVICE_SWITCHED_COLUMN)));
+		device.setLocation(rs.getString(columnBundle.getString(DEVICE_LOCATION_COLUMN)));
 		return device;
 	}
 	
 	@Override
 	public List<Device> getAll() {
 		List<Device> devices = new ArrayList<>();
-		try(PreparedStatement statement = connection.prepareStatement(GET_ALL)) {
+		try(PreparedStatement statement = 
+				connection.prepareStatement(queryBundle.getString(GET_ALL_DEVICES_QUERY))) {
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				devices.add(extractDevice(rs));

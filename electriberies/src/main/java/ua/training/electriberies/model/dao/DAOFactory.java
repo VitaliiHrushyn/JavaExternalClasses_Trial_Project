@@ -1,5 +1,7 @@
 package ua.training.electriberies.model.dao;
 
+import java.util.ResourceBundle;
+
 import ua.training.electriberies.model.dao.impl.JDBCDAOFactory;
 import ua.training.electriberies.model.dao.interfaces.GenericDAO;
 import ua.training.electriberies.model.entity.devices.Device;

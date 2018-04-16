@@ -6,30 +6,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import ua.training.electriberies.model.dao.interfaces.GenericDAO;
-import ua.training.electriberies.model.dao.interfaces.QueryConstants;
+import static ua.training.electriberies.model.dao.interfaces.QueryConstants.*;
 import ua.training.electriberies.model.entity.users.*;
 
 public class JDBCUserDAO implements GenericDAO<User> {
+		
+	private static final String QUERY_BUNDLE_NAME = "db_queries";
+	private static final String COLUMN_BUNDLE_NAME = "db_columns";
 	
-	private static final String GET_BY_ID = QueryConstants.GET_USER_BY_ID_QUERY;
-	private static final String GET_BY_LOGIN = QueryConstants.GET_USER_BY_LOGIN_QUERY;
-	private static final String GET_ALL = QueryConstants.GET_ALL_USERS_QUERY;
-	private static final String INSERT_USER = QueryConstants.INSERT_USER_QUERY;
-	private static final String DELETE_USER = QueryConstants.DELETE_USER_QUERY;
-	private static final String UPDATE_USER = QueryConstants.UPDATE_USER_QUERY;
-
-	private static final String ID = QueryConstants.USER_ID_COLUMN;
-	private static final String LOGIN = QueryConstants.USER_LOGIN_COLUMN;
-	private static final String PASSWORD = QueryConstants.USER_PASSWORD_COLUMN;
-	private static final String ROLE = QueryConstants.USER_ROLE_COLUMN;
-	
+	private ResourceBundle queryBundle;
+	private ResourceBundle columnBundle;
 	
 	private Connection connection;
 
 	public JDBCUserDAO(Connection connection) {
 		this.connection = connection;
+		this.queryBundle = ResourceBundle.getBundle(QUERY_BUNDLE_NAME);
+		this.columnBundle = ResourceBundle.getBundle(COLUMN_BUNDLE_NAME);
 	}
 	
 	/**
@@ -41,7 +37,8 @@ public class JDBCUserDAO implements GenericDAO<User> {
 	 */
 	@Override
 	public User create (User user) {
-		try(PreparedStatement statement = connection.prepareStatement(INSERT_USER)) {
+		try(PreparedStatement statement = 
+				connection.prepareStatement(queryBundle.getString(INSERT_USER_QUERY))) {
 			statement.setString(1, user.getLogin());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getRole().name());			
@@ -58,7 +55,8 @@ public class JDBCUserDAO implements GenericDAO<User> {
 	@Override
 	public User getById(int id) {
 		User user = null;		
-		try(PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
+		try(PreparedStatement statement = 
+				connection.prepareStatement(queryBundle.getString(GET_USER_BY_ID_QUERY))) {
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
@@ -72,7 +70,8 @@ public class JDBCUserDAO implements GenericDAO<User> {
 	
 	private User getByLogin(String login) {
 		User user = null;		
-		try(PreparedStatement statement = connection.prepareStatement(GET_BY_LOGIN)) {
+		try(PreparedStatement statement = 
+				connection.prepareStatement(queryBundle.getString(GET_USER_BY_LOGIN_QUERY))) {
 			statement.setString(1, login);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
@@ -85,17 +84,17 @@ public class JDBCUserDAO implements GenericDAO<User> {
 	}
 
 	private User extractUser(ResultSet rs) throws SQLException {
-		int userid = rs.getInt(ID);
-		String login = rs.getString(LOGIN);
-		String password = rs.getString(PASSWORD);
-		String role = rs.getString(ROLE);
-		
+		int userid = rs.getInt(columnBundle.getString(USER_ID_COLUMN));
+		String login = rs.getString(columnBundle.getString(USER_LOGIN_COLUMN));
+		String password = rs.getString(columnBundle.getString(USER_PASSWORD_COLUMN));
+		String role = rs.getString(columnBundle.getString(USER_ROLE_COLUMN));		
 		return new UserImpl(userid, login, password, UserRole.valueOf(role));
 	}
 
 	@Override
 	public User update(User user) {
-		try(PreparedStatement statement = connection.prepareStatement(UPDATE_USER)) {
+		try(PreparedStatement statement = 
+				connection.prepareStatement(queryBundle.getString(UPDATE_USER_QUERY))) {
 			statement.setString(1, user.getLogin());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getRole().name());
@@ -112,7 +111,8 @@ public class JDBCUserDAO implements GenericDAO<User> {
 
 	@Override
 	public User delete(User user) {
-		try(PreparedStatement statement = connection.prepareStatement(DELETE_USER)) {
+		try(PreparedStatement statement = 
+				connection.prepareStatement(queryBundle.getString(DELETE_USER_QUERY))) {
 			statement.setInt(1, user.getId());
 			int res = statement.executeUpdate();
 			if (res > 0) {
@@ -128,7 +128,8 @@ public class JDBCUserDAO implements GenericDAO<User> {
 	@Override
 	public List<User> getAll() {
 		List<User> users = new ArrayList<>();		
-		try(PreparedStatement statement = connection.prepareStatement(GET_ALL)) {
+		try(PreparedStatement statement = 
+				connection.prepareStatement(queryBundle.getString(GET_ALL_USERS_QUERY))) {
 			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
 				User user = extractUser(rs);			
